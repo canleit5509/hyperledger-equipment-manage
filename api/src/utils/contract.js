@@ -1,5 +1,7 @@
-const getContract = async () => {
-
+const path = require('path');
+const fs = require('fs');
+const { Gateway, Wallets } = require('fabric-network');
+const query = async (query, ...options) => {
     try {
         const ccpPath = path.resolve(__dirname, '..', '..', '..', '..', 'test-network', 'organizations', 'peerOrganizations', 'org1.example.com', 'connection-org1.json');
         const ccp = JSON.parse(fs.readFileSync(ccpPath, 'utf8'));
@@ -34,11 +36,14 @@ const getContract = async () => {
         // Get the contract from the network.
         const contract = network.getContract('transaction');
 
-        return contract;
+
+        // Evaluate the specified transaction.
+        const result = await contract.evaluateTransaction(query, ...options);
+        return result.toString();
     } catch (error) {
         console.error(`Failed to evaluate transaction: ${error}`);
         process.exit(1);
     }
 }
 
-module.exports = getContract;
+module.exports = { query };
