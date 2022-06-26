@@ -13,10 +13,10 @@ starttime=$(date +%s)
 CC_SRC_LANGUAGE=${1:-"javascript"}
 CC_SRC_LANGUAGE=`echo "$CC_SRC_LANGUAGE" | tr [:upper:] [:lower:]`
 
-CC_SRC_PATH="../transaction/chaincode/"
+CC_SRC_PATH="../hyperledger-equipment-manage-chain/chaincode/"
 
 # clean out any old identites in the wallets
-rm -rf wallet/*
+rm -rf api/wallet/*
 
 
 # launch network; create channel and join peer to channel
