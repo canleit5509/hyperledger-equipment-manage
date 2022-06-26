@@ -1,0 +1,18 @@
+{
+  "name": "chaincode",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "fabric-chaincode-node start"
+},
+  "keywords": [
+    "chaincode"
+  ],
+  "dependencies": {
+    "fabric-contract-api": "^2.2.5",
+    "fabric-shim": "^2.2.5"
+  },
+  "author": "Can Le",
+  "license": "MIT"
+}
