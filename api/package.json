@@ -1,7 +1,7 @@
 {
-    "name": "fabcar",
+    "name": "equipment_management_system",
     "version": "1.0.0",
-    "description": "FabCar application implemented in JavaScript",
+    "description": "Equipment management application implemented in JavaScript",
     "engines": {
         "node": ">=8",
         "npm": ">=5"
@@ -14,7 +14,7 @@
         "dev": "nodemon --watch ./ index.js"
     },
     "engineStrict": true,
-    "author": "Hyperledger",
+    "author": "Can Le",
     "license": "Apache-2.0",
     "dependencies": {
         "fabric-ca-client": "^2.2.4",
