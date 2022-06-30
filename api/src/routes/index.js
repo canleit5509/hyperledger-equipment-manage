@@ -1,5 +1,4 @@
 const accountRoutes = require('./account');
-const classroomRoutes = require('./classroom');
 const authorization = require('../middlewares/authorization');
 const isAuth = require('../middlewares/authentication');
 const { query, invoke } = require('../utils/contract');
@@ -10,7 +9,7 @@ function routes(app) {
   });
   app.get('/create', async (req, res) => {
     const equipment = {
-      id: 'PC_03',
+      id: 'PC_05',
       name: 'Cans PC',
       type: 'Laptop',
       status: 'unavailable',
@@ -23,12 +22,10 @@ function routes(app) {
       createdAt: Date.now(),
       updatedAt: Date.now(),
   }
-    const result = await invoke('appUser','changeEquipmentStatus', equipment);
+    const result = await invoke('appUser','createEquipment', equipment);
     res.status(200).json(JSON.parse(result.toString()));
   })
 
-  app.use('/api/account', accountRoutes);
-  app.use('/api/classroom', classroomRoutes);
 }
 
 module.exports = routes;
