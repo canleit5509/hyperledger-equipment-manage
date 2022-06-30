@@ -36,12 +36,13 @@ const query = async (username, query, ...options) => {
         const network = await gateway.getNetwork('mychannel');
 
         // Get the contract from the network.
-        const contract = network.getContract('transaction');
+        const contract = network.getContract('equipment');
 
 
         // Evaluate the specified transaction.
         const result = await contract.evaluateTransaction(query, ...options);
-        return result.toString();
+        await gateway.disconnect();
+        return result;
     } catch (error) {
         console.error(`Failed to evaluate transaction: ${error}`);
     }

@@ -5,9 +5,9 @@ const isAuth = require('../middlewares/authentication');
 const { query } = require('../utils/contract');
 function routes(app) {
   app.get('/', async (req, res) => {
-    const result = await query('listTransaction');
-    
-    res.send(JSON.parse(result.toString()));
+    const result = await query('appUser','queryAllEquipments');
+    console.log(result);
+    res.send(result);
   });
 
   app.use('/api/account', accountRoutes);

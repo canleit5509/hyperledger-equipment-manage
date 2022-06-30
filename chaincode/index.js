@@ -1,7 +1,6 @@
 
 'use strict';
 
-const TransactionContract = require('./chaincode');
-
-module.exports.TransactionContract = TransactionContract;
-module.exports.contracts = [TransactionContract];
+const EquipmentContract = require('./equipment');
+module.exports.EquipmentContract = EquipmentContract;
+module.exports.contracts = [EquipmentContract];
