@@ -105,3 +105,6 @@ dist
 
 # TernJS port file
 .tern-port
+explore/organizations/fabric-ca/ordererOrg/msp/keystore/
+explore/organizations/fabric-ca/org1/msp/keystore/
+explore/organizations/fabric-ca/org2/msp/keystore/
