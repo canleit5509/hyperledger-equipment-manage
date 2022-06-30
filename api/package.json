@@ -11,7 +11,7 @@
         "pretest": "npm run lint",
         "test": "nyc mocha --recursive",
         "start": "node index.js",
-        "dev": "nodemon --watch ./ index.js"
+        "dev": "node enrollAdmin.js && node registerUser.js && nodemon --watch ./ index.js"
     },
     "engineStrict": true,
     "author": "Can Le",

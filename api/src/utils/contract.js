@@ -11,7 +11,6 @@ const query = async (username, query, ...options) => {
         // Create a new file system based wallet for managing identities.
         const walletPath = path.join(process.cwd(), 'wallet');
         const wallet = await Wallets.newFileSystemWallet(walletPath);
-        console.log(`Wallet path: ${walletPath}`);
 
         // Check to see if we've already enrolled the user.
         const identity = await wallet.get(username);
@@ -40,8 +39,59 @@ const query = async (username, query, ...options) => {
 
 
         // Evaluate the specified transaction.
+        console.log(...options);
         const result = await contract.evaluateTransaction(query, ...options);
+        console.log(result);
         await gateway.disconnect();
+        return result;
+    } catch (error) {
+        console.error(`Failed to evaluate transaction: ${error}`);
+    }
+}
+
+const invoke = async (username, type, arg) => {
+    try {
+        const ccpPath = path.resolve(__dirname, '..', '..', '..', '..', 'test-network', 'organizations', 'peerOrganizations', 'org1.example.com', 'connection-org1.json');
+        const ccp = JSON.parse(fs.readFileSync(ccpPath, 'utf8'));
+
+        // Create a new file system based wallet for managing identities.
+        const walletPath = path.join(process.cwd(), 'wallet');
+        const wallet = await Wallets.newFileSystemWallet(walletPath);
+
+        // Check to see if we've already enrolled the user.
+        const identity = await wallet.get(username);
+        if (!identity) {
+            console.log(`An identity for the user ${username} does not exist in the wallet`);
+            console.log('Run the registerUser.js application before retrying');
+            return;
+        }
+
+        // Create a new gateway for connecting to our peer node.
+        const gateway = new Gateway();
+        await gateway.connect(ccp, {
+            wallet,
+            identity: username,
+            discovery: {
+                enabled: true,
+                asLocalhost: true
+            }
+        });
+
+        // Get the network (channel) our contract is deployed to.
+        const network = await gateway.getNetwork('mychannel');
+
+        // Get the contract from the network.
+        const contract = network.getContract('equipment');
+
+        // var result = await contract.submitTransaction('createEquipment', arg.id, arg.name, arg.type, arg.status, arg.user, arg.buyTime, arg.price, arg.model, arg.serialNumber, arg.supplier, arg.createdAt, arg.updatedAt);
+        // Evaluate the specified transaction.
+        if (type == 'createEquipment' || type == 'updateEquipment') {
+            var result = await contract.submitTransaction(type, arg.id, arg.name, arg.type, arg.status, arg.user, arg.buyTime, arg.price, arg.model, arg.serialNumber, arg.supplier, arg.createdAt, arg.updatedAt);
+        } else if (type === 'changeEquipmentStatus') {
+            var result = await contract.submitTransaction(type, arg.id, arg.status, arg.updatedAt);
+        } else if (type === 'changeEquipmentUser') {
+            var result = await contract.submitTransaction(type, arg.id, arg.user, arg.updatedAt);
+        }
         return result;
     } catch (error) {
         console.error(`Failed to evaluate transaction: ${error}`);
@@ -118,4 +168,4 @@ const prettyJSONString = (inputString) => {
 	}
 }
 
-module.exports = { query, registerUser, prettyJSONString };
+module.exports = { query, invoke, registerUser, prettyJSONString };

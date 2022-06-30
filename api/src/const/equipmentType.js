@@ -1,0 +1,10 @@
+const PC = 'PC';
+const LAPTOP = 'Laptop';
+const MONITOR = 'Monitor';
+const MOUSE = 'Mouse';
+const KEYBOARD = 'Keyboard';
+const HEADPHONE = 'Headphone';
+const PRINTER = 'Printer';
+const OTHER = 'Other';
+const EQUIPMENT_TYPE = [PC, LAPTOP, MONITOR, MOUSE, KEYBOARD, HEADPHONE, PRINTER, OTHER];
+module.exports = EQUIPMENT_TYPE;

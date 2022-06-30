@@ -37,12 +37,28 @@ async function main() {
         const network = await gateway.getNetwork('mychannel');
 
         // Get the contract from the network.
-        const contract = network.getContract('transaction');
+        const contract = network.getContract('equipment');
 
         // Submit the specified transaction.
         // createCar transaction - requires 5 argument, ex: ('createCar', 'CAR12', 'Honda', 'Accord', 'Black', 'Tom')
         // changeCarOwner transaction - requires 2 args , ex: ('changeCarOwner', 'CAR12', 'Dave')
-        await contract.submitTransaction('createTransaction', 'CAR12', 'Honda', 'Accord', 'Black', 'Tom');
+        const equipment = {
+            id: 'PC_02',
+            name: 'Cans PC',
+            type: 'Type 2',
+            status: 'using',
+            user: 'Can',
+            buyTime: '2019-01-01',
+            price: '200000000',
+            model: 'Dell XPS',
+            serialNumber: '1234567890',
+            supplier: 'Dell',
+            createdAt: Date.now(),
+            updatedAt: Date.now(),
+        }
+        await contract.submitTransaction('createEquipment', equipment.id, equipment.name, equipment.type, equipment.status, equipment.user, equipment.buyTime, equipment.price, equipment.model, equipment.serialNumber, equipment.supplier, equipment.createdAt, equipment.updatedAt);
+      
+        // await contract.submitTransaction('createTransaction', 'CAR12', 'Honda', 'Accord', 'Black', 'Tom');
         console.log('Transaction has been submitted');
 
         // Disconnect from the gateway.
