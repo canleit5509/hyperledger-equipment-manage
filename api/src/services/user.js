@@ -5,6 +5,7 @@ const {
 
 const queryUser = async (filter, options) => {
     options.select = options.select || '-password';
+    filter.deleted = false; // filter out deleted users
     const users = await User.paginate(filter, options);
     return users;
 };
@@ -48,9 +49,33 @@ const updateUserById = async (id, userUpdate) => {
 
 const deleteUserById = async (id) => {
     const user = await getUserById(id);
-    await user.remove();
+    await user.delete();
     return user;
 };
+
+const getDeletedUserById = async (id) => {
+    return await User.findDeleted(id);
+};
+
+const restoreUserById = async (id) => {
+    const user = await getDeletedUserById(id);
+    await user.restore();
+    return user;
+}
+
+const queryDeletedUser = async (filter, options) => {
+    options.select = options.select || '-password';
+    filter.deleted = true; // filter out deleted users
+    const users = await User.paginate(filter, options);
+    return users;
+}
+
+const queryWithDeleted = async (filter, options) => {
+    options.select = options.select || '-password';
+    const users = await User.paginate(filter, options);
+    return users;
+}
+
 
 module.exports = {
     queryUser,
@@ -59,5 +84,9 @@ module.exports = {
     createUser,
     updateUserById,
     deleteUserById,
-    getUserByEmailWithPassword
+    getUserByEmailWithPassword,
+    getDeletedUserById,
+    restoreUserById,
+    queryDeletedUser,
+    queryWithDeleted
 };

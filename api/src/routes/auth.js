@@ -14,10 +14,10 @@ const permit = require('../middlewares/authorization');
 const isAuth = require('../middlewares/authentication');
 const USER_ROLES = require('../const/userRoles');
 // Public routes
-router.get('/:id', isAuth,  controllers.userController.getProfile);
-router.put('/:id', isAuth, checkProfile(), validator, controllers.userController.updateProfile);
-router.delete('/:id', isAuth, permit(USER_ROLES.ADMIN), controllers.userController.deleteUser);
-router.get('/', isAuth, permit(USER_ROLES.ADMIN, USER_ROLES.MANAGER), controllers.userController.getAllUsers)
+router.post('/register', checkRegister(), validator, controllers.userController.register);
+router.post('/login', checkRegister(), validator, controllers.userController.login);
+router.post('/password_change', isAuth, checkPassword(), validator, controllers.userController.changePassword);
+
 // // Private routes
 // router.get('/me', isAuth, accountController.getProfile);
 // router.put('/me', isAuth, checkProfile(), validator, accountController.updateProfile);

@@ -27,13 +27,7 @@ const checkRegister = () => [
 ];
 
 const checkProfile = () => [
-  check('first_name', 'First name is not valid')
-    .isString()
-    .matches(/\b([A-ZÀ-ÿ][-,a-z. ']+[ ]*)+$/)
-    .isLength({
-      max: 30,
-    }),
-  check('last_name', 'Last name is not valid')
+  check('name', 'Name is not valid')
     .isString()
     .matches(/\b([A-ZÀ-ÿ][-,a-z. ']+[ ]*)+$/)
     .isLength({
@@ -41,8 +35,18 @@ const checkProfile = () => [
     }),
   check('phone', 'Phone is not valid')
     .isMobilePhone('vi-VN'),
-  check('class_name', 'Class name is not valid')
-    .isString(),
+  check('department', 'Department is not valid')
+    .isString()
+    .matches(/\b([A-ZÀ-ÿ][-,a-z. ']+[ ]*)+$/)
+    .isLength({
+      max: 30,
+    }),
+  check('position', 'Position is not valid')
+    .isString()
+    .matches(/\b([A-ZÀ-ÿ][-,a-z. ']+[ ]*)+$/)
+    .isLength({
+      max: 30,
+    }),
 ];
 
 const checkAvatar = () => [
@@ -51,7 +55,7 @@ const checkAvatar = () => [
 ];
 
 const checkPassword = () => [
-  check('old_password', 'Old password is required')
+  check('oldPassword', 'Old password is required')
     .not().isEmpty(),
   check('password', 'New password is required')
     .not().isEmpty(),

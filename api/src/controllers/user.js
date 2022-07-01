@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const mongoose = require('mongoose');
 const USER_ROLES = require('../const/userRoles');
 const services = require('../services');
 
@@ -75,6 +76,7 @@ const register = async (req, res) => {
                 message: 'User not created',
             });
         }
+        newUser.password = undefined;
         // return the Account
         return res.status(201).json(newUser);
     }
@@ -86,7 +88,231 @@ const register = async (req, res) => {
     }
 }
 
+const getProfile = async (req, res) => {
+    try {
+        const user = await services.userService.getUserById(req.user._id);
+        if (!user) {
+            return res.status(400).json({
+                message: 'User not found',
+            });
+        }
+        return res.status(200).json(user);
+    }
+    catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            error: error.message,
+            message: 'Something went wrong',
+        });
+    }
+}
+
+const updateProfile = async (req, res) => {
+    try {
+        const user = await services.userService.getUserById(req.user._id);
+        if (!user) {
+            return res.status(400).json({
+                message: 'User not found',
+            });
+        }
+        const updatedUser = await services.userService.updateUser(user._id, req.body);
+        if (!updatedUser) {
+            return res.status(400).json({
+                message: 'User not updated',
+            });
+        }
+        return res.status(200).json(updatedUser);
+    }
+    catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            error: error.message,
+            message: 'Something went wrong',
+        });
+    }
+}
+
+const changePassword = async (req, res) => {
+    try {
+        const user = await services.userService.getUserById(req.user._id);
+        if (!user) {
+            return res.status(400).json({
+                message: 'User not found',
+            });
+        }
+        const isPasswordCorrect = await bcrypt.compare(req.body.oldPassword, user.password);
+        if (!isPasswordCorrect) {
+            return res.status(400).json({
+                message: 'Password is incorrect',
+            });
+        }
+        const hashedPassword = await bcrypt.hash(req.body.newPassword, 10);
+        const updatedUser = await services.userService.updateUser(user._id, {
+            password: hashedPassword,
+        });
+        if (!updatedUser) {
+            return res.status(400).json({
+                message: 'User not updated',
+            });
+        }
+        return res.status(200).json(updatedUser);
+    }
+    catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            error: error.message,
+            message: 'Something went wrong',
+        });
+    }
+}
+
+const changeAvatar = async (req, res) => {
+    try {
+        const user = await services.userService.getUserById(req.user._id);
+        if (!user) {
+            return res.status(400).json({
+                message: 'User not found',
+            });
+        }
+        const updatedUser = await services.userService.updateUser(user._id, {
+            avatar: req.body.avatar,
+        });
+        if (!updatedUser) {
+            return res.status(400).json({
+                message: 'User not updated',
+            });
+        }
+        return res.status(200).json(updatedUser);
+    }
+    catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            error: error.message,
+            message: 'Something went wrong',
+        });
+    }
+}
+
+const getAllUsers = async (req, res) => {
+    try {
+        const {
+            page,
+            limit,
+            sort,
+            order,
+        } = req.query;
+        let options = {
+            page: page?parseInt(page,10):1,
+            limit: limit?parseInt(limit,10):10,
+            sort: sort?sort:'createdAt',
+            order: order?order:'desc',
+        }
+        const users = await services.userService.queryUser({},options);
+        if (!users) {
+            return res.status(204).json({
+                message: 'Users not found',
+            });
+        }
+        return res.status(200).json(users);
+    }
+    catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            error: error.message,
+            message: 'Something went wrong',
+        });
+    }
+}
+
+const deleteUser = async (req, res) => {
+    try {
+        const user = await services.userService.getUserById(req.params.id);
+        if (!user) {
+            return res.status(400).json({
+                message: 'User not found',
+            });
+        }
+        const deletedUser = await services.userService.deleteUserById(user._id);
+        if (!deletedUser) {
+            return res.status(400).json({
+                message: 'User not deleted',
+            });
+        }
+        return res.status(200).json(deletedUser);
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            error: error.message,
+            message: 'Something went wrong',
+        });
+    }
+}
+
+const getDeletedUsers = async (req, res) => {
+    try {
+        const {
+            page,
+            limit,
+            sort,
+            order,
+        } = req.query;
+        let options = {
+            page: page?parseInt(page,10):1,
+            limit: limit?parseInt(limit,10):10,
+            sort: sort?sort:'createdAt',
+            order: order?order:'desc',
+        }
+        const users = await services.userService.queryDeletedUser({},options);
+        if (!users) {
+            return res.status(204).json({
+                message: 'Users not found',
+            });
+        }
+        return res.status(200).json(users);
+    }
+    catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            error: error.message,
+            message: 'Something went wrong',
+        });
+    }
+}
+
+const restoreUser = async (req, res) => {
+    try {
+        const user = await services.userService.getDeletedUserById(req.params.id);
+        if (!user) {
+            return res.status(400).json({
+                message: 'User not found',
+            });
+        }
+        const restoredUser = await services.userService.restoreUser(user._id);
+        if (!restoredUser) {
+            return res.status(400).json({
+                message: 'User not restored',
+            });
+        }
+        return res.status(200).json(restoredUser);
+    }
+    catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            error: error.message,
+            message: 'Something went wrong',
+        });
+    }
+}
+
 module.exports = {
     login,
     register,
+    getProfile,
+    updateProfile,
+    changePassword,
+    changeAvatar,
+    getAllUsers,
+    deleteUser,
+    getDeletedUsers,
+    restoreUser,
 }
