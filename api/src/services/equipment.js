@@ -6,12 +6,11 @@ const {
 } = require('../utils/contract');
 
 const listEquipment = async (filter, options) => {
-    options.select = options.select || '-password';
     filter.deleted = false; // filter out deleted users
     let equipments = await Equipment.paginate(filter, options);
     equipments.data = [];
-    equipments.docs.forEach(equipment => {
-        var equipmentDetail = query('readEquipment', equipment.equipmentId);
+    equipments.docs.forEach(async equipment => {
+        var equipmentDetail = await query('readEquipment', equipment.equipmentId);
         equipments.data.push(JSON.parse(equipmentDetail.toString()));
     });
 
@@ -23,8 +22,8 @@ const getOwnEquipment = async (userId) => {
         usedBy: userId
     });
     data = [];
-    equipments.forEach(equipment => {
-        var equipmentDetail = query('readEquipment', equipment.equipmentId);
+    equipments.forEach(async equipment => {
+        var equipmentDetail = await query('readEquipment', equipment.equipmentId);
         data.push(JSON.parse(equipmentDetail.toString()));
     });
     return data;
@@ -43,6 +42,21 @@ const createEquipment = async (equipment) => {
         return false;
     }
 }
+
+const getEquipmentById = async (id) => {
+    try {
+        const equipment = await Equipment.findById(id);
+        if (!equipment) {
+            return false;
+        }
+        var equipmentDetail = await query('readEquipment', equipment.equipmentId);
+        return equipmentDetail;
+    } catch (err) {
+        console.log(err);
+        return false;
+    }
+}
+
 
 const updateEquipmentById = async (id, equipmentUpdate) => {
     try {
