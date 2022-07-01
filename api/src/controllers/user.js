@@ -80,8 +80,9 @@ const register = async (req, res) => {
         return res.status(201).json(newUser);
     }
     catch (error) {
-        console.log(err);
+        console.log(error);
         return res.status(500).json({
+            error: error.message,
             message: 'Something went wrong',
         });
     }

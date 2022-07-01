@@ -122,6 +122,7 @@ module.exports = {
     listEquipment,
     getOwnEquipment,
     createEquipment,
+    getEquipmentById,
     updateEquipmentById,
     changeEquipmentUser,
     deleteEquipmentById,
