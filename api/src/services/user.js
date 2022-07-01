@@ -28,8 +28,7 @@ const getUserByEmailWithPassword = async (email) => {
 const createUser = async (user) => {
     try {
         const wallet = await registerUser(user.email, user.role);
-        console.log(wallet);
-        if (wallet) {
+        if (!wallet) {
             return false;
         }
         const newUser = await User.create(user);
