@@ -2,8 +2,9 @@ const path = require('path');
 const fs = require('fs');
 const { Gateway, Wallets } = require('fabric-network');
 const FabricCAServices = require('fabric-ca-client');
+const USER_ROLES = require('../const/userRoles');
 
-const query = async (username, query, ...options) => {
+const query = async (username, query, options = '') => {
     try {
         const ccpPath = path.resolve(__dirname, '..', '..', '..', '..', 'test-network', 'organizations', 'peerOrganizations', 'org1.example.com', 'connection-org1.json');
         const ccp = JSON.parse(fs.readFileSync(ccpPath, 'utf8'));
@@ -39,8 +40,8 @@ const query = async (username, query, ...options) => {
 
 
         // Evaluate the specified transaction.
-        console.log(...options);
-        const result = await contract.evaluateTransaction(query, ...options);
+        console.log(options);
+        const result = await contract.evaluateTransaction(query, options);
         console.log(result);
         await gateway.disconnect();
         return result;
@@ -98,7 +99,7 @@ const invoke = async (username, type, arg) => {
     }
 }
 
-const registerUser = async (username, role) => {
+const registerUser = async (username, role = USER_ROLES.USER) => {
     try {
         // load the network configuration
         const ccpPath = path.resolve(__dirname, '..', '..', '..', '..', 'test-network', 'organizations', 'peerOrganizations', 'org1.example.com', 'connection-org1.json');
@@ -117,7 +118,7 @@ const registerUser = async (username, role) => {
         const userIdentity = await wallet.get(username);
         if (userIdentity) {
             console.log(`An identity for the user ${username} already exists in the wallet`);
-            return;
+            return false;
         }
 
         // Check to see if we've already enrolled the admin user.
@@ -125,7 +126,7 @@ const registerUser = async (username, role) => {
         if (!adminIdentity) {
             console.log('An identity for the admin user "admin" does not exist in the wallet');
             console.log('Run the enrollAdmin.js application before retrying');
-            return;
+            return false;
         }
 
         // build a user object for authenticating with the CA
@@ -153,9 +154,10 @@ const registerUser = async (username, role) => {
         };
         await wallet.put(username, x509Identity);
         console.log(`Successfully registered and enrolled admin user ${username} and imported it into the wallet`);
-
+        return true;
     } catch (error) {
-        console.error(`Failed to register user "appUser": ${error}`);
+        return false;
+        console.error(`Failed to register user ${username}: ${error}`);
     }
 }
 

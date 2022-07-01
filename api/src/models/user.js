@@ -12,12 +12,9 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true,
+    select: false,
   },
-  first_name: {
-    type: String,
-    default: null,
-  },
-  last_name: {
+  name: {
     type: String,
     default: null,
   },
@@ -33,7 +30,19 @@ const userSchema = new mongoose.Schema({
   avatar: {
     type: String,
     default: null,
-  }
+  }, 
+  department: {
+    type: String,
+    default: null,
+  },
+  position: {
+    type: String,
+    default: null,
+  },
+  equipments: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Equipment',
+  }]
 }, {timestamps: true});
 
 userSchema.plugin(paginate);
