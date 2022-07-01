@@ -4,7 +4,7 @@ const { Gateway, Wallets } = require('fabric-network');
 const FabricCAServices = require('fabric-ca-client');
 const USER_ROLES = require('../const/userRoles');
 
-const query = async (username, query, options = '') => {
+const query = async (query, options = '',username = 'appUser') => {
     try {
         const ccpPath = path.resolve(__dirname, '..', '..', '..', '..', 'test-network', 'organizations', 'peerOrganizations', 'org1.example.com', 'connection-org1.json');
         const ccp = JSON.parse(fs.readFileSync(ccpPath, 'utf8'));
@@ -50,7 +50,7 @@ const query = async (username, query, options = '') => {
     }
 }
 
-const invoke = async (username, type, arg) => {
+const invoke = async (type, arg, username = 'appUser') => {
     try {
         const ccpPath = path.resolve(__dirname, '..', '..', '..', '..', 'test-network', 'organizations', 'peerOrganizations', 'org1.example.com', 'connection-org1.json');
         const ccp = JSON.parse(fs.readFileSync(ccpPath, 'utf8'));
@@ -64,7 +64,7 @@ const invoke = async (username, type, arg) => {
         if (!identity) {
             console.log(`An identity for the user ${username} does not exist in the wallet`);
             console.log('Run the registerUser.js application before retrying');
-            return;
+            return false;
         }
 
         // Create a new gateway for connecting to our peer node.
@@ -96,6 +96,7 @@ const invoke = async (username, type, arg) => {
         return result;
     } catch (error) {
         console.error(`Failed to evaluate transaction: ${error}`);
+        return false;
     }
 }
 

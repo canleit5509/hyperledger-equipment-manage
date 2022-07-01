@@ -1,6 +1,5 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const mongoose = require('mongoose');
 const USER_ROLES = require('../const/userRoles');
 const services = require('../services');
 
@@ -279,6 +278,37 @@ const getDeletedUsers = async (req, res) => {
     }
 }
 
+const getUsersWithDeleted = async (req, res) => {
+    try {
+        const {
+            page,
+            limit,
+            sort,
+            order,
+        } = req.query;
+        let options = {
+            page: page?parseInt(page,10):1,
+            limit: limit?parseInt(limit,10):10,
+            sort: sort?sort:'createdAt',
+            order: order?order:'desc',
+        }
+        const users = await services.userService.queryWithDeleted({},options);
+        if (!users) {
+            return res.status(204).json({
+                message: 'Users not found',
+            });
+        }
+        return res.status(200).json(users);
+    }
+    catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            error: error.message,
+            message: 'Something went wrong',
+        });
+    }
+}
+
 const restoreUser = async (req, res) => {
     try {
         const user = await services.userService.getDeletedUserById(req.params.id);
@@ -304,6 +334,26 @@ const restoreUser = async (req, res) => {
     }
 }
 
+const getMyEquipments = async (req, res) => {
+    try {
+        const devices = await services.equipmentService.getOwnEquipment(req.user._id);
+        if (!devices) {
+            return res.status(204).json({
+                message: 'Devices not found',
+            });
+        }
+        return res.status(200).json(devices);
+    }
+    catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            error: error.message,
+            message: 'Something went wrong',
+        });
+    }
+}
+
+
 module.exports = {
     login,
     register,
@@ -315,4 +365,6 @@ module.exports = {
     deleteUser,
     getDeletedUsers,
     restoreUser,
+    getUsersWithDeleted,
+    getMyEquipments
 }

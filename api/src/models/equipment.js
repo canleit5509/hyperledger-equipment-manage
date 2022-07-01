@@ -21,7 +21,7 @@ const equipmentSchema = new mongoose.Schema({
   },
   type: {
     type: String,
-    enum: [...EQUIPMENT_TYPE],
+    enum: [EQUIPMENT_TYPE.PC, EQUIPMENT_TYPE.HEADPHONE, EQUIPMENT_TYPE.KEYBOARD, EQUIPMENT_TYPE.LAPTOP, EQUIPMENT_TYPE.MOUSE, EQUIPMENT_TYPE.MONITOR, EQUIPMENT_TYPE.PRINTER, EQUIPMENT_TYPE.OTHER],
     required: true,
   }, 
 }, {timestamps: true});
