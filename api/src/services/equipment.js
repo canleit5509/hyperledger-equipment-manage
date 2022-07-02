@@ -1,5 +1,4 @@
 const Equipment = require('../models/equipment');
-const User = require('../models/user');
 const {
     invoke,
     query
