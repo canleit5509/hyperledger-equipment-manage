@@ -14,6 +14,10 @@ const getUserById = async (id) => {
     return await User.findById(id);
 };
 
+const getUserByIdWithPassword = async (id) => {
+    return await User.findById(id).select('+password');
+};
+
 const getUserByEmail = async (email) => {
     return await User.findOne({
         email
@@ -89,5 +93,6 @@ module.exports = {
     getDeletedUserById,
     restoreUserById,
     queryDeletedUser,
-    queryWithDeleted
+    queryWithDeleted,
+    getUserByIdWithPassword
 };

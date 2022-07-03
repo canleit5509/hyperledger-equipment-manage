@@ -134,7 +134,8 @@ const updateProfile = async (req, res) => {
 
 const changePassword = async (req, res) => {
     try {
-        const user = await services.userService.getUserById(req.user._id);
+        const user = await services.userService.getUserByIdWithPassword(req.user._id);
+        console.log(user, req.body);
         if (!user) {
             return res.status(400).json({
                 message: 'User not found',
@@ -146,8 +147,8 @@ const changePassword = async (req, res) => {
                 message: 'Password is incorrect',
             });
         }
-        const hashedPassword = await bcrypt.hash(req.body.newPassword, 10);
-        const updatedUser = await services.userService.updateUser(user._id, {
+        const hashedPassword = await bcrypt.hash(req.body.password, 10);
+        const updatedUser = await services.userService.updateUserById(user._id, {
             password: hashedPassword,
         });
         if (!updatedUser) {
@@ -155,6 +156,7 @@ const changePassword = async (req, res) => {
                 message: 'User not updated',
             });
         }
+        updatedUser.password = undefined;
         return res.status(200).json(updatedUser);
     }
     catch (error) {
