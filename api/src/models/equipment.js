@@ -15,7 +15,7 @@ const equipmentSchema = new mongoose.Schema({
     enum: [EQUIPMENT_STATUS.AVAILABLE, EQUIPMENT_STATUS.IN_USE, EQUIPMENT_STATUS.LOST, EQUIPMENT_STATUS.REPAIRING, EQUIPMENT_STATUS.UNAVAILABLE],
     default: EQUIPMENT_STATUS.AVAILABLE,
   },
-  usedBy: {
+  user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
   },

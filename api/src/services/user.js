@@ -28,11 +28,12 @@ const getUserByEmailWithPassword = async (email) => {
 
 const createUser = async (user) => {
     try {
-        const wallet = await registerUser(user.email, user.role);
+        const newUser = await User.create(user);
+        const wallet = await registerUser(newUser._id, newUser.role);
         if (!wallet) {
+            newUser.delete();
             return false;
         }
-        const newUser = await User.create(user);
         return newUser;
     } catch (err) {
         console.log(err);

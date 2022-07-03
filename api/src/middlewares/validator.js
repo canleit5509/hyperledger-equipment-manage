@@ -1,79 +1,123 @@
 const {
-  check,
-  validationResult,
+    check,
+    validationResult,
 } = require('express-validator');
 
 const validator = (req, res, next) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(422).json({
-      errors: errors.array(),
-    });
-  }
-  return next();
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(422).json({
+            errors: errors.array(),
+        });
+    }
+    return next();
 };
 
 const checkRegister = () => [
-  check('email', 'Email is required')
+    check('email', 'Email is required')
     .not().isEmpty(),
-  check('email', 'Email is not valid')
+    check('email', 'Email is not valid')
     .isEmail(),
-  check('password', 'Password is required')
+    check('password', 'Password is required')
     .not().isEmpty(),
-  check('password', 'Password must be at least 6 characters')
+    check('password', 'Password must be at least 6 characters')
     .isLength({
-      min: 6,
+        min: 6,
     }),
 ];
 
 const checkProfile = () => [
-  check('name', 'Name is not valid')
+    check('name', 'Name is not valid')
     .isString()
     .matches(/\b([A-ZÀ-ÿ][-,a-z. ']+[ ]*)+$/)
     .isLength({
-      max: 30,
+        max: 30,
     }),
-  check('phone', 'Phone is not valid')
+    check('phone', 'Phone is not valid')
     .isMobilePhone('vi-VN'),
-  check('department', 'Department is not valid')
+    check('department', 'Department is not valid')
     .isString()
     .matches(/\b([A-ZÀ-ÿ][-,a-z. ']+[ ]*)+$/)
     .isLength({
-      max: 30,
+        max: 30,
     }),
-  check('position', 'Position is not valid')
+    check('position', 'Position is not valid')
     .isString()
     .matches(/\b([A-ZÀ-ÿ][-,a-z. ']+[ ]*)+$/)
     .isLength({
-      max: 30,
+        max: 30,
     }),
 ];
 
 const checkAvatar = () => [
-  check('avatar', 'Avatar is not valid')
+    check('avatar', 'Avatar is not valid')
     .isURL(),
 ];
 
 const checkPassword = () => [
-  check('oldPassword', 'Old password is required')
+    check('oldPassword', 'Old password is required')
     .not().isEmpty(),
-  check('password', 'New password is required')
+    check('password', 'New password is required')
     .not().isEmpty(),
-  check('password', 'New password must be at least 6 characters')
+    check('password', 'New password must be at least 6 characters')
     .isLength({
-      min: 6,
+        min: 6,
     }),
 ];
 
+const checkRequest = () => [
+    check('status', 'Status is required')
+    .not().isEmpty(),
+    check('status', 'Status is not valid')
+    .isString(),
+    check('description', 'Description is not valid')
+    .isString(),
+    check('type', 'Type is required')
+    .not().isEmpty(),
+    check('type', 'Type is not valid')
+    .isString(),
+    check('equipmentId', 'Equipment ID is not valid')
+    .isMongoId(),
+    check('description', 'Description is not valid')
+    .isString(),
+];
+
+const checkEquipment = () => [
+    check('name', 'Name is not valid')
+    .isString(),
+    check('status', 'Status is required')
+    .not().isEmpty(),
+    check('status', 'Status is not valid')
+    .isString(),
+    check('type', 'Type is required')
+    .not().isEmpty(),
+    check('type', 'Type is not valid')
+    .isString(),
+    check('user', 'User is not valid')
+    .isMongoId(),
+    check('buyTime', 'Buy time is not valid')
+    .isDate(),
+    check('price', 'Price is not valid')
+    .isNumeric(),
+    check('model', 'Model is not valid')
+    .isString(),
+    check('serialNumber', 'Serial number is not valid')
+    .isString(),
+    check('supplier', 'Supplier is not valid')
+    .isString(),
+
+];
 const checkObjectId = () => [
-  check('id', 'Id is not valid')
+    check('id', 'Id is not valid')
     .isMongoId(),
 ];
 module.exports = {
-  validator,
-  checkRegister,
-  checkProfile,
-  checkAvatar,
-  checkPassword,
-  checkObjectId
+    validator,
+    checkRegister,
+    checkProfile,
+    checkAvatar,
+    checkPassword,
+    checkObjectId,
+    checkRequest,
+    checkEquipment
 };
