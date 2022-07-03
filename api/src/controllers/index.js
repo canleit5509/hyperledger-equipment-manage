@@ -1,3 +1,4 @@
 const userController = require('./user');
 const requestController = require('./request');
-module.exports = {userController, requestController};
+const equipmentController = require('./equipment');
+module.exports = {userController, requestController, equipmentController};
