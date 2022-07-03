@@ -9,7 +9,6 @@ const {
 } = require('../middlewares/validator');
 const permit = require('../middlewares/authorization');
 const isAuth = require('../middlewares/authentication');
-const USER_ROLES = require('../const/userRoles');
 
 router.get('/:id', isAuth, controllers.requestController.getRequest);
 router.post('/', isAuth, checkRequest(), validator, controllers.requestController.createRequest);

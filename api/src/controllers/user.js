@@ -109,7 +109,7 @@ const getProfile = async (req, res) => {
 
 const updateProfile = async (req, res) => {
     try {
-        const user = await services.userService.getUserById(req.user._id);
+        const user = await services.userService.getUserById(req.params.id);
         if (!user) {
             return res.status(400).json({
                 message: 'User not found',
@@ -176,7 +176,8 @@ const changePassword = async (req, res) => {
 
 const changeAvatar = async (req, res) => {
     try {
-        const user = await services.userService.getUserById(req.user._id);
+        const id = req.params.id || req.user._id ;
+        const user = await services.userService.getUserById(id);
         if (!user) {
             return res.status(400).json({
                 message: 'User not found',
@@ -362,6 +363,26 @@ const getMyEquipments = async (req, res) => {
     }
 }
 
+const getUserById = async (req, res) => {
+    try {
+        const user = await services.userService.getUserById(req.params.id);
+        if (!user) {
+            return res.status(404).json({
+                message: 'User not found',
+            });
+        }
+        return res.status(200).json(user);
+    }
+    catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            error: error.message,
+            message: 'Something went wrong',
+        });
+    }
+}
+
+
 
 module.exports = {
     login,
@@ -375,5 +396,6 @@ module.exports = {
     getDeletedUsers,
     restoreUser,
     getUsersWithDeleted,
-    getMyEquipments
+    getMyEquipments,
+    getUserById
 }
