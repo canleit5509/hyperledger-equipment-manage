@@ -6,7 +6,7 @@ const {
 const validator = (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        return res.status(422).json({
+        return res.status(400).json({
             errors: errors.array(),
         });
     }
@@ -36,17 +36,9 @@ const checkProfile = () => [
     check('phone', 'Phone is not valid')
     .isMobilePhone('vi-VN'),
     check('department', 'Department is not valid')
-    .isString()
-    .matches(/\b([A-ZÀ-ÿ][-,a-z. ']+[ ]*)+$/)
-    .isLength({
-        max: 30,
-    }),
+    .isString(),
     check('position', 'Position is not valid')
-    .isString()
-    .matches(/\b([A-ZÀ-ÿ][-,a-z. ']+[ ]*)+$/)
-    .isLength({
-        max: 30,
-    }),
+    .isString(),
 ];
 
 const checkAvatar = () => [

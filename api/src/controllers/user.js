@@ -115,7 +115,14 @@ const updateProfile = async (req, res) => {
                 message: 'User not found',
             });
         }
-        const updatedUser = await services.userService.updateUser(user._id, req.body);
+
+        const userProfile = {
+            name: req.body.name?req.body.name:user.name,
+            phone: req.body.phone?req.body.phone:user.phone,
+            position: req.body.position?req.body.position:user.position,
+            department: req.body.department?req.body.department:user.department,
+        }
+        const updatedUser = await services.userService.updateUserById(user._id, userProfile);
         if (!updatedUser) {
             return res.status(400).json({
                 message: 'User not updated',
@@ -135,7 +142,6 @@ const updateProfile = async (req, res) => {
 const changePassword = async (req, res) => {
     try {
         const user = await services.userService.getUserByIdWithPassword(req.user._id);
-        console.log(user, req.body);
         if (!user) {
             return res.status(400).json({
                 message: 'User not found',
@@ -314,13 +320,13 @@ const getUsersWithDeleted = async (req, res) => {
 
 const restoreUser = async (req, res) => {
     try {
-        const user = await services.userService.getDeletedUserById(req.params.id);
+        const user = await services.userService.getUserById(req.params.id);
         if (!user) {
             return res.status(400).json({
                 message: 'User not found',
             });
         }
-        const restoredUser = await services.userService.restoreUser(user._id);
+        const restoredUser = await services.userService.restoreUserById(user._id);
         if (!restoredUser) {
             return res.status(400).json({
                 message: 'User not restored',

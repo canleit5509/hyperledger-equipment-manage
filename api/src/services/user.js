@@ -58,12 +58,9 @@ const deleteUserById = async (id) => {
     return user;
 };
 
-const getDeletedUserById = async (id) => {
-    return await User.findDeleted(id);
-};
 
 const restoreUserById = async (id) => {
-    const user = await getDeletedUserById(id);
+    const user = await getUserById(id);
     await user.restore();
     return user;
 }
@@ -90,7 +87,6 @@ module.exports = {
     updateUserById,
     deleteUserById,
     getUserByEmailWithPassword,
-    getDeletedUserById,
     restoreUserById,
     queryDeletedUser,
     queryWithDeleted,
