@@ -8,6 +8,7 @@ function routes(app) {
   app.use('/api/auth', userRoute);
   app.use('/api/user', require('./user'));
   app.use('/api/request', require('./request'));
+  app.use('/api/equipment', require('./equipment'));
   app.get('/', async (req, res) => {
     // const result = await query('appUser','queryAllEquipments');
     // res.status(200).json(JSON.parse(result.toString()));

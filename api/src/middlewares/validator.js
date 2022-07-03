@@ -75,6 +75,7 @@ const checkRequest = () => [
 ];
 
 const checkEquipment = () => [
+    check('id', 'ID is required').notEmpty(),
     check('name', 'Name is not valid')
     .isString(),
     check('status', 'Status is required')
@@ -86,17 +87,17 @@ const checkEquipment = () => [
     check('type', 'Type is not valid')
     .isString(),
     check('user', 'User is not valid')
-    .isMongoId(),
+    .isMongoId().optional(),
     check('buyTime', 'Buy time is not valid')
-    .isDate(),
+    .isDate().optional(),
     check('price', 'Price is not valid')
-    .isNumeric(),
+    .isNumeric().optional(),
     check('model', 'Model is not valid')
-    .isString(),
+    .isString().optional(),
     check('serialNumber', 'Serial number is not valid')
-    .isString(),
+    .isString().optional(),
     check('supplier', 'Supplier is not valid')
-    .isString(),
+    .isString().optional(),
 
 ];
 const checkObjectId = () => [

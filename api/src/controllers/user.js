@@ -109,7 +109,7 @@ const getProfile = async (req, res) => {
 
 const updateProfile = async (req, res) => {
     try {
-        const user = await services.userService.getUserById(req.params.id);
+        const user = await services.userService.getUserById(req.user._id);
         if (!user) {
             return res.status(400).json({
                 message: 'User not found',

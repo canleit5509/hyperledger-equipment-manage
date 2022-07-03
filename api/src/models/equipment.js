@@ -6,7 +6,7 @@ const EQUIPMENT_STATUS = require('../const/equipmentStatus');
 const EQUIPMENT_TYPE = require('../const/equipmentType');
 
 const equipmentSchema = new mongoose.Schema({
-  equipmentId: {
+  id: {
     type: String,
     required: true,
   },
@@ -24,6 +24,27 @@ const equipmentSchema = new mongoose.Schema({
     enum: [EQUIPMENT_TYPE.PC, EQUIPMENT_TYPE.HEADPHONE, EQUIPMENT_TYPE.KEYBOARD, EQUIPMENT_TYPE.LAPTOP, EQUIPMENT_TYPE.MOUSE, EQUIPMENT_TYPE.MONITOR, EQUIPMENT_TYPE.PRINTER, EQUIPMENT_TYPE.OTHER],
     required: true,
   }, 
+  name: {
+    type: String,
+  },
+  buyTime: {
+    type: Date,
+    default: Date.now,
+  },
+  price: {
+    type: Number,
+    default: 0,
+  },
+  model: {
+    type: String,
+  },
+  serialNumber: {
+    type: String,
+  },
+  supplier: {
+    type: String,
+  },
+
 }, {timestamps: true});
 
 equipmentSchema.plugin(paginate);

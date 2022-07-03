@@ -40,9 +40,7 @@ const query = async (query, options = '',username = 'appUser') => {
 
 
         // Evaluate the specified transaction.
-        console.log(options);
         const result = await contract.evaluateTransaction(query, options);
-        console.log(result);
         await gateway.disconnect();
         return result;
     } catch (error) {
@@ -84,10 +82,9 @@ const invoke = async (type, arg, username = 'appUser') => {
         // Get the contract from the network.
         const contract = network.getContract('equipment');
 
-        // var result = await contract.submitTransaction('createEquipment', arg.id, arg.name, arg.type, arg.status, arg.user, arg.buyTime, arg.price, arg.model, arg.serialNumber, arg.supplier, arg.createdAt, arg.updatedAt);
         // Evaluate the specified transaction.
         if (type == 'createEquipment' || type == 'updateEquipment') {
-            var result = await contract.submitTransaction(type, arg.id, arg.name, arg.type, arg.status, arg.user, arg.buyTime, arg.price, arg.model, arg.serialNumber, arg.supplier, arg.createdAt, arg.updatedAt);
+            var result = await contract.submitTransaction(type, arg.id, arg.name, arg.type, arg.status, arg.user, arg.buyTime, arg.price, arg.model, arg.serialNumber, arg.supplier);
         } else if (type === 'changeEquipmentStatus') {
             var result = await contract.submitTransaction(type, arg.id, arg.status, arg.updatedAt);
         } else if (type === 'changeEquipmentUser') {
@@ -157,8 +154,8 @@ const registerUser = async (username, role = USER_ROLES.USER) => {
         console.log(`Successfully registered and enrolled admin user ${username} and imported it into the wallet`);
         return true;
     } catch (error) {
-        return false;
         console.error(`Failed to register user ${username}: ${error}`);
+        return false;
     }
 }
 

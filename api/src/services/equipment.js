@@ -8,17 +8,20 @@ const listEquipment = async (filter, options) => {
     filter.deleted = false; // filter out deleted users
     let equipments = await Equipment.paginate(filter, options);
     equipments.data = [];
-    equipments.docs.forEach(async equipment => {
-        var equipmentDetail = await query('readEquipment', equipment.equipmentId);
-        equipments.data.push(JSON.parse(equipmentDetail.toString()));
-    });
+    data = [];
+
+    for await (const equipment of equipments.docs) {
+        var equipmentDetail = await query('readEquipment', equipment.id);
+        data.push(JSON.parse(equipmentDetail.toString()));
+    }
+    equipments.data = data;
 
     return equipments;
 }
 
 const getOwnEquipment = async (userId) => {
     let equipments = await Equipment.find({
-        usedBy: userId
+        user: userId
     });
     data = [];
     equipments.forEach(async equipment => {
@@ -34,6 +37,7 @@ const createEquipment = async (equipment) => {
         if (!transaction) {
             return false;
         }
+        equipment.user == "" ? equipment.user = null : equipment.user;
         const newEquipment = await Equipment.create(equipment);
         return newEquipment;
     } catch (err) {
@@ -48,7 +52,7 @@ const getEquipmentById = async (id) => {
         if (!equipment) {
             return false;
         }
-        var equipmentDetail = await query('readEquipment', equipment.equipmentId);
+        var equipmentDetail = await query('readEquipment', equipment.id);
         return equipmentDetail;
     } catch (err) {
         console.log(err);
@@ -56,7 +60,18 @@ const getEquipmentById = async (id) => {
     }
 }
 
-
+const isEquipmentIdExist = async (equipmentId) => {
+    try {
+        const equipment = await query('readEquipment', equipmentId);
+        if (!equipment) {
+            return false;
+        }
+        return true;
+    } catch (err) {
+        console.log(err);
+        return false;
+    }
+}
 const updateEquipmentById = async (id, equipmentUpdate) => {
     try {
         const equipment = await Equipment.findById(id);
@@ -125,5 +140,6 @@ module.exports = {
     updateEquipmentById,
     changeEquipmentUser,
     deleteEquipmentById,
-    changeEquipmentStatus
+    changeEquipmentStatus,
+    isEquipmentIdExist
 }

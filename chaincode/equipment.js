@@ -24,7 +24,7 @@ class EquipmentContract extends Contract {
         console.log('============= END : Initialize Ledger ===========');
     }
 
-    async createEquipment(ctx, id, name, type, status, user, buyTime, price, model, serialNumber, supplier, createdAt, updatedAt) {
+    async createEquipment(ctx, id, name, type, status, user, buyTime, price, model, serialNumber, supplier) {
         
         const equipment = {
             id: id,
@@ -37,8 +37,6 @@ class EquipmentContract extends Contract {
             model: model,
             serialNumber: serialNumber,
             supplier: supplier,
-            createdAt: createdAt,
-            updatedAt: updatedAt
         }
         try {
             await ctx.stub.putState(id, Buffer.from(JSON.stringify(equipment)));
@@ -56,7 +54,7 @@ class EquipmentContract extends Contract {
         return equipmentAsBytes.toString();
     }
 
-    async updateEquipment(ctx, id, name, type, status, user, buyTime, price, model, serialNumber, supplier, createdAt, updatedAt) {
+    async updateEquipment(ctx, id, name, type, status, user, buyTime, price, model, serialNumber, supplier) {
         const equipmentAsBytes = await ctx.stub.getState(id); // get the transaction from chaincode state
         if (!equipmentAsBytes || equipmentAsBytes.length === 0) {
             throw new Error(`The asset ${id} does not exist`);
@@ -72,8 +70,6 @@ class EquipmentContract extends Contract {
             model: model,
             serialNumber: serialNumber,
             supplier: supplier,
-            createdAt: createdAt,
-            updatedAt: updatedAt
         }
         await ctx.stub.putState(id, Buffer.from(JSON.stringify(equipment)));
         return equipment.toString();
