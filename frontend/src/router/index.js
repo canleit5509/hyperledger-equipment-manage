@@ -8,6 +8,7 @@ import AccountManagement from "../view/AccountManagement";
 import ErrorPage from "../view/ErrorPage.vue";
 import Profile from "../view/Profile.vue";
 import Dashboard from "../view/Dashboard.vue"
+import MyDevices from "../view/MyDevices.vue"
 
 Vue.use(VueRouter);
 
@@ -19,14 +20,15 @@ const routes = [
   {
     path: "/",
     component: MainPage,
+    redirect: "/mydevices",
     meta: {
       requiresAuth: true
     },
     children: [
       {
-        name: "dashboard",
-        path: "/",
-        component: Dashboard,
+        name: "mydevices",
+        path: "/mydevices",
+        component: MyDevices,
       },
       {
         name: "campaign",

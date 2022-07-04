@@ -15,11 +15,11 @@ const getEquipment = async (req, res) => {
 
 const createEquipment = async (req, res) => {
     try {
-        if (services.equipmentService.isEquipmentIdExist(req.body.id)) {
-            return res.status(400).json({
-                message: 'Equipment id already exist'
-            });
-        }
+        // if (services.equipmentService.isEquipmentIdExist(req.body.id)) {
+        //     return res.status(400).json({
+        //         message: 'Equipment id already exist'
+        //     });
+        // }
 
         var data = {
             id: req.body.id,

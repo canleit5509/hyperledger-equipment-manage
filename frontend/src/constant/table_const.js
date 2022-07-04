@@ -1,4 +1,61 @@
 const user_fields = [{
+   key: "id",
+   label: "ID",
+   thStyle: {
+      width: '80px',
+   },
+},
+{
+   key: "name",
+   label: "Account Name",
+   thStyle: {
+      width: '150px'
+   },
+},
+{
+   key: "email",
+   label: "Email",
+   thStyle: {
+      width: '150px'
+   },
+   tdClass: 'align-middle'
+},
+{
+   key: "status",
+   label: "Status",
+   thStyle: {
+      width: '80px'
+   },
+},
+{
+   key: "agency_name",
+   label: "Agency Name",
+   thStyle: {
+      width: '150px'
+   },
+
+},
+{
+   key: "role_name",
+   label: "Role Name",
+   thStyle: {
+      width: '150px'
+   },
+},
+{
+   key: "update",
+   thClass: 'd-none',
+   tdClass: 'd-none',
+},
+{
+   key: "delete",
+   thClass: 'd-none',
+   tdClass: 'd-none',
+}
+]
+
+const equipment_fields = [
+   {
       key: "id",
       label: "ID",
       thStyle: {
@@ -7,154 +64,119 @@ const user_fields = [{
    },
    {
       key: "name",
-      label: "Account Name",
-      thStyle: {
-         width: '150px'
-      },
-   },
-   {
-      key: "email",
-      label: "Email",
-      thStyle: {
-         width: '150px'
-      },
-      tdClass: 'align-middle'
+      label: "Equipment Name",
    },
    {
       key: "status",
       label: "Status",
+   },
+   {
+      key: "type",
+      label: "Type",
+   },
+   {
+      key: "user",
+      label: "User",
       thStyle: {
-         width: '80px'
+         width: '250px',
       },
    },
    {
-      key: "agency_name",
-      label: "Agency Name",
-      thStyle: {
-         width: '150px'
-      },
-
+      key: "buyTime",
+      label: "Buy Time",
    },
    {
-      key: "role_name",
-      label: "Role Name",
-      thStyle: {
-         width: '150px'
-      },
+      key: "price",
+      label: "Price",
    },
    {
-      key: "update",
-      thClass: 'd-none',
-      tdClass: 'd-none',
+      key: "model",
+      label: "Model",
    },
    {
-      key: "delete",
-      thClass: 'd-none',
-      tdClass: 'd-none',
+      key: "serialNumber",
+      label: "Serial Number",
    }
 ]
 const campaign_fields = [{
-      key: "id",
-      label: "ID",
-      thStyle: {
-         width: '80px'
-      },
+   key: "id",
+   label: "ID",
+   thStyle: {
+      width: '80px'
    },
-   {
-      key: "campaign_name",
-      label: "Campaign Name",
-      thStyle: {
-         width: '240px'
-      },
+},
+{
+   key: "campaign_name",
+   label: "Campaign Name",
+   thStyle: {
+      width: '240px'
    },
-   {
-      key: "campaign_status",
-      label: "Status",
-      thStyle: {
-         width: '80px'
-      },
+},
+{
+   key: "campaign_status",
+   label: "Status",
+   thStyle: {
+      width: '80px'
    },
-   {
-      key: "cost",
-      label: "Used Amount",
-      formatter: (cost) => {
-         return '$ ' + cost.toLocaleString({style: 'currency'});
-      },
-      thStyle: {
-         width: '120px'
-      },
+},
+{
+   key: "cost",
+   label: "Used Amount",
+   formatter: (cost) => {
+      return '$ ' + cost.toLocaleString({ style: 'currency' });
    },
-   {
-      key: "usage_rate",
-      label: "Usage Rate",
-      formatter: () =>{
-         return 0 + ' %';
-      },
-      thStyle: {
-         width: '120px'
-      },
+   thStyle: {
+      width: '120px'
    },
-   {
-      key: "campaign_budget",
-      label: "Budget",
-      formatter: (campaign_budget) => {
-         return '$ ' + campaign_budget.toLocaleString({style: 'currency'});
-      },
-      thStyle: {
-         width: '120px'
-      },
+},
+{
+   key: "usage_rate",
+   label: "Usage Rate",
+   formatter: () => {
+      return 0 + ' %';
    },
-   {
-      key: "start_time",
-      label: "Start Time",
-      thStyle: {
-         width: '150px'
-      },
+   thStyle: {
+      width: '120px'
    },
-   {
-      key: "end_time",
-      label: "End Time",
-      thStyle: {
-         width: '150px'
-      },
+},
+{
+   key: "campaign_budget",
+   label: "Budget",
+   formatter: (campaign_budget) => {
+      return '$ ' + campaign_budget.toLocaleString({ style: 'currency' });
    },
-   {
-      key: "update",
-      thClass: 'd-none',
-      tdClass: 'd-none'
+   thStyle: {
+      width: '120px'
    },
-   {
-      key: "delete",
-      thClass: 'd-none',
-      tdClass: 'd-none'
-   }
-]
-const export_fields = {
-   "Id": "id",
-   "Campaign Name": "campaign_name",
-   "Status": "campaign_status",
-   "Used Amount": {
-      field: "cost",
-      callback: value => {
-         return '$ ' + value.toLocaleString({style: 'currency'})
-      }
+},
+{
+   key: "start_time",
+   label: "Start Time",
+   thStyle: {
+      width: '150px'
    },
-   "Usage Rate": {
-      callback: value => {
-         return  parseFloat((value.cost/value.campaign_budget*100)).toFixed(2) +  ' %';
-      }
+},
+{
+   key: "end_time",
+   label: "End Time",
+   thStyle: {
+      width: '150px'
    },
-   "Budget": {
-      field: "campaign_budget",
-      callback: value => {
-         return '$ ' + value.toLocaleString({style: 'currency'})
-      }
-   },
-   "Start Date": "start_time",
-   "End Date": "end_time"
+},
+{
+   key: "update",
+   thClass: 'd-none',
+   tdClass: 'd-none'
+},
+{
+   key: "delete",
+   thClass: 'd-none',
+   tdClass: 'd-none'
 }
+]
+
 export default {
    user_fields,
    campaign_fields,
-   export_fields
+   equipment_fields
 }

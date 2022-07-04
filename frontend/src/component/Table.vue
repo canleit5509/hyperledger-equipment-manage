@@ -30,7 +30,7 @@
           <CampaignName :data="data.item" />
         </template>
         <template v-slot:cell(status)="data">
-          <Status :data="data.item.status" />
+          <Status :data="data.item" />
         </template>
         <template v-slot:cell(campaign_status)="data">
           <Status :data="data.item.campaign_status" />

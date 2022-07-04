@@ -1,11 +1,12 @@
 import Vue from "vue"
 import Vuex from "vuex"
-import AuthStore from "../store/module/auth"
-import Profile from "../store/module/profile"
-import User from '../store/module/user'
-import Campaign from '../store/module/campaign'
-import Validation from '../store/module/validation'
-import ErrorMessage from '../store/module/errorMessage'
+import AuthStore from "./module/auth"
+import Profile from "./module/profile"
+import User from './module/user'
+import Campaign from './module/campaign'
+import Validation from './module/validation'
+import ErrorMessage from './module/errorMessage'
+import Equipment from './module/myequipment'
 Vue.use(Vuex)
 export default new Vuex.Store({
     modules: {
@@ -14,6 +15,7 @@ export default new Vuex.Store({
         USER: User,
         CAMPAIGN:Campaign,
         VALIDATION: Validation,
-        ERROR: ErrorMessage
+        ERROR: ErrorMessage,
+        MYEQUIPMENT: Equipment,
     }
 })

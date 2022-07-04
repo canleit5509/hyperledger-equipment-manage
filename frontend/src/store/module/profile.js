@@ -32,10 +32,12 @@ const actions = {
             })
     },
     async changeUserInfo({
-        commit
+        commit,
+        dispatch
     }, userData) {
         await http.put('/api/user/me', userData, 'Update information successfully').then(() => {
-            commit("clearError")
+            dispatch("AUTH/getUserByToken", {}, { root: true });
+            console.log("dispatch");
         }).catch((err) => {
             commit("setError", err.response.data.message)
             console.log(err.response.data.message);
@@ -48,7 +50,6 @@ const actions = {
             .then(() => {
                 commit("clearError")
             }).catch((error) => {
-                Vue.toasted.show('Something was wrong!!')
                 commit("setErrorPw", "Current password is incorrect")
                 console.log(error);
             })

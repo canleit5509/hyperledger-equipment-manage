@@ -4,7 +4,7 @@ const state = {
   userList: null,
   totalUser: null,
   currentPage: 1,
-  perPage: 2,
+  perPage: 10,
 };
 
 const getters = {
@@ -37,10 +37,8 @@ const mutations = {
 const actions = {
   async getusers({ commit }) {
     await http
-      .get("/users")
+      .get("/api/user")
       .then((response) => {
-        console.log("get all users", response.data);
-        localStorage.setItem("users", JSON.stringify(response.data));
         commit("setUserList", response.data);
         commit("setCurrentPage", response.data.current_page);
         localStorage.setItem('listUser', JSON.stringify(response.data.data))

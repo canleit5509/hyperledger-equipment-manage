@@ -45,6 +45,7 @@ const query = async (query, options = '',username = 'appUser') => {
         return result;
     } catch (error) {
         console.error(`Failed to evaluate transaction: ${error}`);
+        return false;
     }
 }
 

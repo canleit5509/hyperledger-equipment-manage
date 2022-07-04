@@ -63,13 +63,14 @@ const getEquipmentById = async (id) => {
 const isEquipmentIdExist = async (equipmentId) => {
     try {
         const equipment = await query('readEquipment', equipmentId);
+        console.log(equipment);
         if (!equipment) {
             return false;
         }
         return true;
     } catch (err) {
         console.log(err);
-        return false;
+        return true;
     }
 }
 const updateEquipmentById = async (id, equipmentUpdate) => {

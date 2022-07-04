@@ -13,7 +13,7 @@
       <br />
       <span>{{ user.role}}</span>
       <ul>
-        <router-link tag="li" to="/">
+        <router-link tag="li" to="/mydevices">
           <b-icon class="icon" icon="printer" aria-hidden="true" />
           My Equipment
         </router-link>
@@ -41,7 +41,7 @@
     </div>
     <div class="menu-item-hide" v-else>
       <ul>
-        <router-link tag="li" to="/">
+        <router-link tag="li" to="/mydevices">
           <b-icon class="icon" icon="printer" aria-hidden="true" />
         </router-link>
         <router-link
