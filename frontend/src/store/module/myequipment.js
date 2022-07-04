@@ -4,7 +4,7 @@ const state = {
   myEquipments: null,
   totalEquipments: null,
   currentPage: 1,
-  perPage: 2,
+  perPage: 10,
 };
 
 const getters = {
@@ -49,19 +49,7 @@ const actions = {
         commit('ERROR/setErrorMessage', error.response.data.message, { root: true })
       });
   },
-  async createEquipment({
-    commit, dispatch
-  }, equipmentData) {
-    await http
-      .post("/api/equipment", equipmentData, "Equipment created successfully!")
-      .then(() => {
-        dispatch('getEquipments')
-        commit("ERROR/clearErrorMessage", null, { root: true })
-      })
-      .catch((error) => {
-        commit('ERROR/setErrorMessage', error.response.data.message, { root: true })
-      });
-  },
+  
   async getEquipment({
     commit
   }, id) {
@@ -71,33 +59,8 @@ const actions = {
         commit("ERROR/clearErrorMessage", null, { root: true })
       })
   },
-  async updateEquipment({
-    commit, dispatch
-  }, equipmentData) {
-    await http
-      .put(`/campaigns/${equipmentData.id}`, equipmentData, 'Updated campaign successfully')
-      .then(() => {
-        dispatch('getEquipments')
-        commit("ERROR/clearErrorMessage", null, { root: true })
-      })
-      .catch((error) => {
-        commit('ERROR/setErrorMessage', error.response.data.message, { root: true })
-      });
-  },
-  deleteEquipment({
-    commit, dispatch
-  }, id) {
-    http
-      .delete(`/campaigns/${id}`, 'Delete campaign successfully')
-      .then(() => {
-        dispatch('getEquipments')
-        commit("ERROR/clearErrorMessage", null, { root: true })
-      })
-      .catch((error) => {
-        dispatch('getEquipments')
-        commit('ERROR/setErrorMessage', error.response.data.message, { root: true })
-      });
-  },
+  
+  
 }
 export default {
   namespaced: true,

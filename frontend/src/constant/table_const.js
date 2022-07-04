@@ -1,46 +1,36 @@
 const user_fields = [{
-   key: "id",
+   key: "_id",
    label: "ID",
    thStyle: {
-      width: '80px',
+      width: '180px',
    },
 },
 {
    key: "name",
-   label: "Account Name",
-   thStyle: {
-      width: '150px'
-   },
+   label: "Username",
+
 },
 {
    key: "email",
    label: "Email",
-   thStyle: {
-      width: '150px'
-   },
+
    tdClass: 'align-middle'
 },
 {
-   key: "status",
-   label: "Status",
+   key: "department",
+   label: "Department",
    thStyle: {
       width: '80px'
    },
 },
 {
-   key: "agency_name",
-   label: "Agency Name",
-   thStyle: {
-      width: '150px'
+   key: "phone",
+   label: "Phone",
    },
-
-},
 {
-   key: "role_name",
+   key: "position",
    label: "Role Name",
-   thStyle: {
-      width: '150px'
-   },
+  
 },
 {
    key: "update",
@@ -98,85 +88,36 @@ const equipment_fields = [
       label: "Serial Number",
    }
 ]
-const campaign_fields = [{
-   key: "id",
-   label: "ID",
-   thStyle: {
-      width: '80px'
+
+const request_fields = [
+   {
+      key: "status",
+      label: "Status",
    },
-},
-{
-   key: "campaign_name",
-   label: "Campaign Name",
-   thStyle: {
-      width: '240px'
+   {
+      key: "type",
+      label: "Type",
    },
-},
-{
-   key: "campaign_status",
-   label: "Status",
-   thStyle: {
-      width: '80px'
+   {
+      key: "Description",
+      label: "Description",
    },
-},
-{
-   key: "cost",
-   label: "Used Amount",
-   formatter: (cost) => {
-      return '$ ' + cost.toLocaleString({ style: 'currency' });
+   {
+      key: "equipmentId",
+      label: "Equipment",
    },
-   thStyle: {
-      width: '120px'
+   {
+      key: "createdBy",
+      label: "Created By",
    },
-},
-{
-   key: "usage_rate",
-   label: "Usage Rate",
-   formatter: () => {
-      return 0 + ' %';
-   },
-   thStyle: {
-      width: '120px'
-   },
-},
-{
-   key: "campaign_budget",
-   label: "Budget",
-   formatter: (campaign_budget) => {
-      return '$ ' + campaign_budget.toLocaleString({ style: 'currency' });
-   },
-   thStyle: {
-      width: '120px'
-   },
-},
-{
-   key: "start_time",
-   label: "Start Time",
-   thStyle: {
-      width: '150px'
-   },
-},
-{
-   key: "end_time",
-   label: "End Time",
-   thStyle: {
-      width: '150px'
-   },
-},
-{
-   key: "update",
-   thClass: 'd-none',
-   tdClass: 'd-none'
-},
-{
-   key: "delete",
-   thClass: 'd-none',
-   tdClass: 'd-none'
-}
+   {
+      key: "updatedBy",
+      label: "Updated By",
+   }
 ]
+
 
 export default {
    user_fields,
-   campaign_fields,
    equipment_fields
 }

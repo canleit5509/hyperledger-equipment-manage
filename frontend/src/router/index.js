@@ -3,13 +3,11 @@ import VueRouter from "vue-router";
 
 import Login from "../view/Login.vue";
 import MainPage from "../view/MainPage.vue";
-import Campaign from "../view/Campaign";
-import AccountManagement from "../view/AccountManagement";
+import UserList from "../view/UserList";
 import ErrorPage from "../view/ErrorPage.vue";
 import Profile from "../view/Profile.vue";
-import Dashboard from "../view/Dashboard.vue"
 import MyDevices from "../view/MyDevices.vue"
-
+import EquipmentManage from "../view/EquipmentManage.vue"
 Vue.use(VueRouter);
 
 const routes = [
@@ -31,14 +29,9 @@ const routes = [
         component: MyDevices,
       },
       {
-        name: "campaign",
-        path: "/campaign",
-        component: Campaign,
-      },
-      {
-        name: "accountmanagement",
-        path: "/accountmanagement",
-        component: AccountManagement,
+        name: "userlist",
+        path: "/userlist",
+        component: UserList,
         meta: {
           not_system_user: true
         }
@@ -48,6 +41,11 @@ const routes = [
         name: 'profile',
         component: Profile
       },
+      {
+        path: "/equipment", 
+        name: 'equipment',
+        component: EquipmentManage
+      }
     ]
   },
   { path: "/*", component: ErrorPage },

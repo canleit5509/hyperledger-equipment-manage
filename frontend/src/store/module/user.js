@@ -24,18 +24,18 @@ const getters = {
 
 const mutations = {
   setUserList(state, list) {
-    state.userList = list.data;
-    state.totalUser = list.total;
-    state.currentPage = list.current_page;
-    state.perPage = list.per_page;
+    state.userList = list.docs;
+    state.totalUser = list.totalDocs;
+    state.currentPage = list.page;
+    state.perPage = list.limit;
   },
-  setCurrentPage(state, currentPage) {
-    state.currentPage = currentPage;
+  setCurrentPage(state, page) {
+    state.currentPage = page;
   },
 };
 
 const actions = {
-  async getusers({ commit }) {
+  async getUsers({ commit }) {
     await http
       .get("/api/user")
       .then((response) => {
@@ -49,9 +49,9 @@ const actions = {
   },
   async createNewUser({ commit, dispatch }, userData) {
     await http
-      .post("/users", userData, 'Create a new user successfully')
+      .post("/api/user", userData, 'Create a new user successfully')
       .then(() => {
-        dispatch('getusers')
+        dispatch('getUsers')
         commit("ERROR/clearErrorMessage", null, { root: true })
       })
       .catch((error) => {
@@ -60,9 +60,10 @@ const actions = {
   },
   async updateUser({ commit }, userData) {
     await http
-      .put(`/users/${userData.id}`, userData, 'Update user successfully')
+      .put(`/api/user/${userData.id}`, userData, 'Update user successfully')
       .then((response) => {
         console.log(response.data);
+        dispatch('getUsers')
         commit("ERROR/clearErrorMessage", null, { root: true })
       })
       .catch((error) => {
@@ -71,9 +72,9 @@ const actions = {
   },
   deleteUser({ commit, dispatch }, id) {
     http
-      .delete(`/users/${id}`, 'Delete user successfully')
+      .delete(`/api/user/${id}`, 'Delete user successfully')
       .then(() => {
-        dispatch('getusers');
+        dispatch('getUsers');
         commit("ERROR/clearErrorMessage", null, { root: true })
       })
       .catch((error) => {
@@ -84,7 +85,7 @@ const actions = {
   },
   getUser({ commit }, id) {
     http
-      .get(`/users/${id}`)
+      .get(`/api/user/${id}`)
       .then((response) => {
         console.log(response.data);
         commit("ERROR/clearErrorMessage", null, { root: true })
@@ -96,7 +97,7 @@ const actions = {
   },
   async getListUser({ commit }, page) {
     await http
-      .get(`/users?page=${page}`)
+      .get(`/api/user?page=${page}`)
       .then((response) => {
         commit("setUserList", response.data);
         commit("ERROR/clearErrorMessage", null, { root: true })

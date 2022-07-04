@@ -4,7 +4,7 @@
       <div class="col-sm-6"> 
         <input v-model="searchText" placeholder="Search account name ..."/>
       </div>
-      <div class="addictional-button col-sm-6 d-flex flex-row-reverse">
+      <div class="additional-button col-sm-6 d-flex flex-row-reverse">
         <b-button class="button-modal baseButton"  @click="showModalEdit">
           Create new user
         </b-button>

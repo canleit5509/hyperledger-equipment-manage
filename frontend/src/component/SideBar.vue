@@ -19,23 +19,23 @@
         </router-link>
         <router-link
           tag="li"
-          v-if="userRole == 'admin'"
-          to="/accountmanagement"
+          v-if="userRole == 'admin' || userRole == 'manager'"
+          to="/userlist"
         >
           <b-icon class="icon" icon="clipboard-plus" aria-hidden="true" />
           My Request
         </router-link>
         <router-link tag="li" to="/campaign">
           <b-icon class="icon" icon="clipboard-check" aria-hidden="true"></b-icon>
-          Requests
+          Request Management
         </router-link>
-        <router-link tag="li" to="/campaign">
+        <router-link tag="li" to="/equipment">
           <b-icon class="icon" icon="file-earmark-check" aria-hidden="true"></b-icon>
-          Equipment management
+          Equipment Management
         </router-link>
-        <router-link tag="li" to="/campaign">
+        <router-link tag="li" to="/userlist" v-if="userRole == 'admin'">
           <b-icon class="icon" icon="people" aria-hidden="true"></b-icon>
-          User management
+          User Management
         </router-link>
       </ul>
     </div>
@@ -54,10 +54,10 @@
         <router-link tag="li" to="/campaign">
           <b-icon class="icon" icon="clipboard-check" aria-hidden="true"></b-icon>
         </router-link>
-        <router-link tag="li" to="/campaign">
+        <router-link tag="li" to="/equipment">
           <b-icon class="icon" icon="file-earmark-check" aria-hidden="true"></b-icon>
         </router-link>
-        <router-link tag="li" to="/campaign">
+        <router-link tag="li" to="/userlist" v-if="userRole == 'admin'">
           <b-icon class="icon" icon="people" aria-hidden="true"></b-icon>
         </router-link>
       </ul>

@@ -37,7 +37,6 @@ const actions = {
     }, userData) {
         await http.put('/api/user/me', userData, 'Update information successfully').then(() => {
             dispatch("AUTH/getUserByToken", {}, { root: true });
-            console.log("dispatch");
         }).catch((err) => {
             commit("setError", err.response.data.message)
             console.log(err.response.data.message);

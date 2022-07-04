@@ -6,7 +6,8 @@ import User from './module/user'
 import Campaign from './module/campaign'
 import Validation from './module/validation'
 import ErrorMessage from './module/errorMessage'
-import Equipment from './module/myequipment'
+import myEquipment from './module/myequipment'
+import equipment from './module/equipment'
 Vue.use(Vuex)
 export default new Vuex.Store({
     modules: {
@@ -16,6 +17,7 @@ export default new Vuex.Store({
         CAMPAIGN:Campaign,
         VALIDATION: Validation,
         ERROR: ErrorMessage,
-        MYEQUIPMENT: Equipment,
+        MYEQUIPMENT: myEquipment,
+        EQUIPMENT: equipment
     }
 })

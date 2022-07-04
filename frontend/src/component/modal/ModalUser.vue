@@ -8,11 +8,11 @@
         <div class="header" @click="isShowDetail = !isShowDetail">
           <span>Information</span>
           <span>
-            <i class="bx bxs-chevron-down"></i>
+            <b-icon class="icon" icon="chevron-down" aria-hidden="true"></b-icon>
           </span>
         </div>
         <div v-show="isShowDetail" class="content">
-          <div class="form-group">
+          <div>
             <label for="">Name: </label>
             <input
               class="form-control"
@@ -28,7 +28,7 @@
               </p>
             </div>
           </div>
-          <div class="form-group">
+          <div>
             <label for="">Email: </label>
             <input
               :disabled="isDisableEmail"
@@ -48,7 +48,7 @@
               </p>
             </div>
           </div>
-          <div v-if="modalType === 'add'" class="form-group">
+          <div v-if="modalType === 'add'">
             <label for="">Password: </label>
             <input
               class="form-control"
@@ -67,7 +67,7 @@
               </p>
             </div>
           </div>
-          <div class="form-group">
+          <div>
             <label for="">Status: </label>
             <select v-model="userInfo.status" id="status">
               <option v-for="i in status" :key="i.name" v-bind:value="i.id">
@@ -75,8 +75,8 @@
               </option>
             </select>
           </div>
-          <div class="form-group">
-            <label for="">Agency name: </label>
+          <div>
+            <label for="">Department: </label>
             <input
               class="form-control"
               type="text"
@@ -94,7 +94,7 @@
               </p>
             </div>
           </div>
-          <div class="form-group">
+          <div>
             <label for="">Role name: </label>
             <select class="red" v-model="userInfo.role_id" name="" id="role">
               <option
@@ -346,7 +346,7 @@ button {
 }
 form {
   width: 95%;
-  max-height: 70vh;
+  max-height: 50vh;
   margin: 0 auto;
   .group {
     background-color: rgb(250, 246, 246);
@@ -402,7 +402,7 @@ form {
 .button-modal {
   background-color: $color;
 }
-.is-invalidS {
+.is-invalid {
   border: 2px solid red;
   background-color: rgb(240, 179, 179);
 }
