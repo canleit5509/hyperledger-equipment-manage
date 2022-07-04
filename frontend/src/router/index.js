@@ -1,27 +1,89 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import Vue from "vue";
+import VueRouter from "vue-router";
 
-Vue.use(VueRouter)
+import Login from "../view/Login.vue";
+import MainPage from "../view/MainPage.vue";
+import Campaign from "../view/Campaign";
+import AccountManagement from "../view/AccountManagement";
+import ErrorPage from "../view/ErrorPage.vue";
+import Profile from "../view/Profile.vue";
+import Dashboard from "../view/Dashboard.vue"
+
+Vue.use(VueRouter);
 
 const routes = [
   {
-    path: '/',
-    name: 'home',
-    component: HomeView
+    path: "/login",
+    component: Login,
   },
   {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
-  }
-]
+    path: "/",
+    component: MainPage,
+    meta: {
+      requiresAuth: true
+    },
+    children: [
+      {
+        name: "dashboard",
+        path: "/",
+        component: Dashboard,
+      },
+      {
+        name: "campaign",
+        path: "/campaign",
+        component: Campaign,
+      },
+      {
+        name: "accountmanagement",
+        path: "/accountmanagement",
+        component: AccountManagement,
+        meta: {
+          not_system_user: true
+        }
+      },
+      {
+        path: "/profile",
+        name: 'profile',
+        component: Profile
+      },
+    ]
+  },
+  { path: "/*", component: ErrorPage },
+
+  {
+    path: "*",
+    redirect: "/404",
+  },
+
+];
 
 const router = new VueRouter({
-  routes
-})
+  mode: "history",
+  routes,
+});
 
-export default router
+router.beforeEach((to, from, next) => {
+  let userInfo = JSON.parse(localStorage.getItem('user'))
+  if (to.matched.some((record) => record.meta.requiresAuth)) {
+    if (!localStorage.getItem('token')) {
+      next('/login')
+    } else {
+      if (to.matched.some((record) => record.meta.not_system_user)) {
+        if (userInfo.role_id != 1 && to.matched.some((record) => record.name == 'accountmanagement')) {
+          next('/404')
+        }
+      }
+      next()
+    }
+    next();
+  } else {
+    if(!localStorage.getItem('token')) {
+      next()
+    } else {
+      next('/')
+    }
+    next()
+  }
+
+});
+export default router;
