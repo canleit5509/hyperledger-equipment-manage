@@ -167,11 +167,51 @@ const changeEquipmentUser = async (req, res) => {
     }
 }
 
+const getOwnEquipments = async (req, res) => {
+    try {
+        const userId = req.user._id;
+        const equipments = await services.equipmentService.getUserOwnEquipments(userId);
+        if (!equipments) {
+            return res.status(204).json({
+                message: 'No equipment found'
+            });
+        }
+        return res.status(200).json(equipments);
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            error: error.message,
+            message: 'Something went wrong',
+        });
+    }
+}
+
+const getUserOwnEquipments = async (req, res) => {
+    try {
+        const userId = req.params.id;
+        const equipments = await services.equipmentService.getUserOwnEquipments(userId);
+        if (!equipments) {
+            return res.status(204).json({
+                message: 'No equipment found'
+            });
+        }
+        return res.status(200).json(equipments);
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            error: error.message,
+            message: 'Something went wrong',
+        });
+    }
+}
+
 module.exports = {
     getEquipment,
     createEquipment,
     listEquipment,
     updateEquipment,
     changeEquipmentStatus,
-    changeEquipmentUser
+    changeEquipmentUser,
+    getOwnEquipments,
+    getUserOwnEquipments
 }

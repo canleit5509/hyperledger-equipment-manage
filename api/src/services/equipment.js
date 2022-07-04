@@ -19,15 +19,15 @@ const listEquipment = async (filter, options) => {
     return equipments;
 }
 
-const getOwnEquipment = async (userId) => {
+const getUserOwnEquipments = async (userId) => {
     let equipments = await Equipment.find({
         user: userId
     });
     data = [];
-    equipments.forEach(async equipment => {
-        var equipmentDetail = await query('readEquipment', equipment.equipmentId);
+    for await (const equipment of equipments) {
+        var equipmentDetail = await query('readEquipment', equipment.id);
         data.push(JSON.parse(equipmentDetail.toString()));
-    });
+    }
     return data;
 }
 
@@ -134,7 +134,7 @@ const changeEquipmentStatus = async (equipmentId, status) => {
 
 module.exports = {
     listEquipment,
-    getOwnEquipment,
+    getUserOwnEquipments,
     createEquipment,
     getEquipmentById,
     updateEquipmentById,
