@@ -123,6 +123,7 @@ const updateProfile = async (req, res) => {
             phone: req.body.phone?req.body.phone:user.phone,
             position: req.body.position?req.body.position:user.position,
             department: req.body.department?req.body.department:user.department,
+            avatar: req.body.avatar?req.body.avatar:user.avatar,
         }
         const updatedUser = await services.userService.updateUserById(user._id, userProfile);
         if (!updatedUser) {

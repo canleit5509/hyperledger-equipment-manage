@@ -37,8 +37,8 @@ const actions = {
         await http.put('/api/user/me', userData, 'Update information successfully').then(() => {
             commit("clearError")
         }).catch((err) => {
-            commit("setError", err.response.data.message.email[0])
-            console.log(err.response.data.message.email[0]);
+            commit("setError", err.response.data.message)
+            console.log(err.response.data.message);
         })
     },
     async changePassword({
@@ -46,7 +46,6 @@ const actions = {
     }, passwordData) {
         await http.post('/api/auth/password_change', passwordData, 'Update password successfully')
             .then(() => {
-                console.log(passwordData);
                 commit("clearError")
             }).catch((error) => {
                 Vue.toasted.show('Something was wrong!!')

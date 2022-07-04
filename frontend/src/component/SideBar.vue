@@ -8,36 +8,58 @@
       </div>
       <br />
       <span>{{ user.name }}</span>
-
+      <br />
+      <span>{{ user.email }}</span>
+      <br />
+      <span>{{ user.role}}</span>
       <ul>
-        <router-link tag="li" to="/"
-          ><b-icon class="icon" icon="house-door-fill" aria-hidden="true"></b-icon>
-          Dashboard</router-link
+        <router-link tag="li" to="/">
+          <b-icon class="icon" icon="printer" aria-hidden="true" />
+          My Equipment
+        </router-link>
+        <router-link
+          tag="li"
+          v-if="userRole == 'admin'"
+          to="/accountmanagement"
         >
-        <router-link tag="li" v-if="userRole == 'admin'" to="/accountmanagement"
-          ><b-icon class="icon" icon="person-circle" aria-hidden="true"></b-icon>
-          Account</router-link
-        >
-        <router-link tag="li" to="/campaign"
-          ><b-icon class="icon" icon="columns-gap" aria-hidden="true"></b-icon>
-          Campaign</router-link
-        >
+          <b-icon class="icon" icon="clipboard-plus" aria-hidden="true" />
+          My Request
+        </router-link>
+        <router-link tag="li" to="/campaign">
+          <b-icon class="icon" icon="clipboard-check" aria-hidden="true"></b-icon>
+          Requests
+        </router-link>
+        <router-link tag="li" to="/campaign">
+          <b-icon class="icon" icon="file-earmark-check" aria-hidden="true"></b-icon>
+          Equipment management
+        </router-link>
+        <router-link tag="li" to="/campaign">
+          <b-icon class="icon" icon="people" aria-hidden="true"></b-icon>
+          User management
+        </router-link>
       </ul>
     </div>
     <div class="menu-item-hide" v-else>
       <ul>
-        <router-link tag="li" to="/"
-          ><b-icon class="icon" icon="house-door-fill" aria-hidden="true"></b-icon>
-          </router-link
+        <router-link tag="li" to="/">
+          <b-icon class="icon" icon="printer" aria-hidden="true" />
+        </router-link>
+        <router-link
+          tag="li"
+          v-if="userRole == 'admin'"
+          to="/accountmanagement"
         >
-        <router-link tag="li" v-if="userRole == 'admin'" to="/accountmanagement"
-          ><b-icon class="icon" icon="person-circle" aria-hidden="true"></b-icon>
-          </router-link
-        >
-        <router-link tag="li" to="/campaign"
-          ><b-icon class="icon" icon="columns-gap" aria-hidden="true"></b-icon>
-          </router-link
-        >
+          <b-icon class="icon" icon="clipboard-plus" aria-hidden="true" />
+        </router-link>
+        <router-link tag="li" to="/campaign">
+          <b-icon class="icon" icon="clipboard-check" aria-hidden="true"></b-icon>
+        </router-link>
+        <router-link tag="li" to="/campaign">
+          <b-icon class="icon" icon="file-earmark-check" aria-hidden="true"></b-icon>
+        </router-link>
+        <router-link tag="li" to="/campaign">
+          <b-icon class="icon" icon="people" aria-hidden="true"></b-icon>
+        </router-link>
       </ul>
     </div>
   </div>
@@ -46,7 +68,7 @@
 <script>
 import { mapGetters } from "vuex";
 export default {
-  name: 'SideBar',
+  name: "SideBar",
   props: ["isShowSidebar"],
   data() {
     return {};
@@ -106,10 +128,11 @@ export default {
     }
     .icon {
       margin-left: 20px;
+      font-size: 1rem;
     }
   }
 }
-.menu-item-hide{
+.menu-item-hide {
   color: white;
   ul {
     list-style: none;
@@ -124,14 +147,17 @@ export default {
       line-height: 40px;
       text-decoration: none;
       color: white;
-      border-top: 1px solid white;
+      border-top: 1px solid $fourth-color;
       text-align: center;
     }
     .router-link-exact-active {
       background-color: $secondary-color;
     }
     li:hover {
-      background-color: $secondary-color;
+      background-color: $third-color;
+    }
+    .icon {
+      font-size: 1rem;
     }
     hr {
       margin: 0;

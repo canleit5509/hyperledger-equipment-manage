@@ -28,17 +28,15 @@ const checkRegister = () => [
 
 const checkProfile = () => [
     check('name', 'Name is not valid')
-    .isString()
-    .matches(/\b([A-ZÀ-ÿ][-,a-z. ']+[ ]*)+$/)
-    .isLength({
-        max: 30,
-    }),
+    .isString().optional(),
     check('phone', 'Phone is not valid')
-    .isMobilePhone('vi-VN'),
+    .isMobilePhone('vi-VN').optional(),
     check('department', 'Department is not valid')
-    .isString(),
+    .isString().optional(),
     check('position', 'Position is not valid')
-    .isString(),
+    .isString().optional(),
+    check('avatar', 'Avatar is not valid')
+    .isURL().optional(),
 ];
 
 const checkAvatar = () => [

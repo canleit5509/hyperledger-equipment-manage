@@ -20,20 +20,54 @@
         </div>
         <div class="inf">
           <div class="form-group">
-            <label for="">Name: </label>
+            <label>Name: </label>
             <input
               class="form-control"
               type="text"
               v-model.trim="userInfo.name"
+              readonly
+            />
+          </div>
+          <div class="form-group">
+            <label>Phone number: </label>
+            <input
+              class="form-control"
+              type="text"
+              v-model.trim="userInfo.phone"
             />
             <div class="errors">
-              <p class="error" v-show="showErrors.emptyUserName">
-                Name is requied
+              <p class="error" v-show="showErrors.invalidFormatPhone">
+                Phone is invalid
               </p>
-              <p class="error" v-show="showErrors.userNameMaxLength">
-                Name must have at most 255 letters
-              </p>
+
             </div>
+          </div>
+          <div class="form-group">
+            <label>Email: </label>
+            <input
+              class="form-control"
+              type="text"
+              v-model.trim="userInfo.email"
+              readonly
+            />
+          </div>
+          <div class="form-group">
+            <label>Department: </label>
+            <input
+              class="form-control"
+              type="text"
+              v-model.trim="userInfo.department"
+              readonly
+            />
+          </div>
+          <div class="form-group">
+            <label>Position: </label>
+            <input
+              class="form-control"
+              type="text"
+              v-model.trim="userInfo.position"
+              readonly
+            />
           </div>
           <div class="btn-user">
             <b-button
@@ -49,7 +83,7 @@
       <form @submit.prevent="changePassword">
         <div class="password">
           <div class="form-group current-password">
-            <label for="">Current password</label>
+            <label>Current password</label>
             <input
               class="form-control"
               type="password"
@@ -57,7 +91,7 @@
             />
             <div class="errors">
               <p class="error" v-show="showErrors.emptyOldPassword">
-                Password is requied
+                Password is required
               </p>
               <p class="error" v-show="showErrors.oldPasswordMaxLength">
                 Password must have at most 255 letters
@@ -68,7 +102,7 @@
             </div>
           </div>
           <div class="form-group new-password">
-            <label for="">New password</label>
+            <label>New password</label>
             <input
               class="form-control"
               type="password"
@@ -87,7 +121,7 @@
             </div>
           </div>
           <div class="form-group confirm-password">
-            <label for="">Confirm password</label>
+            <label>Confirm password</label>
             <input
               class="form-control"
               type="password"
@@ -95,7 +129,7 @@
             />
             <div class="errors">
               <p class="error" v-show="showErrors.emptyConfirmPassword">
-                Confirm password is requied
+                Confirm password is required
               </p>
               <p class="error" v-show="showErrors.confirmPasswordMaxLength">
                 Confirm password must have at most 255 letters
@@ -180,9 +214,9 @@ export default {
       } else {
         var info = new Object();
         if (
-          this.userInfo.name != JSON.parse(localStorage.getItem("user")).name
+          this.userInfo.phone != JSON.parse(localStorage.getItem("user")).phone
         ) {
-          info.name = this.userInfo.name;
+          info.phone = this.userInfo.phone;
         }
         if (this.avtFile != null) {
           const formData = new FormData();
@@ -219,16 +253,13 @@ export default {
       let passedValidate = true;
       const errors = this.validateProfile(this.userInfo);
       if (errors) {
+
         Vue.set(
           this.showErrors,
-          "emptyprofileName",
-          this.showErrors && !!errors && errors.emptyprofileName
+          "invalidFormatPhone",
+          this.showErrors && !!errors && errors.invalidFormatPhone
         );
-        Vue.set(
-          this.showErrors,
-          "profileNameMaxLength",
-          this.showErrors && !!errors && errors.profileNameMaxLength
-        );
+        
         passedValidate = false;
       }
       return passedValidate;
@@ -302,10 +333,8 @@ export default {
     },
   },
   watch: {
-    "userInfo.name"(val) {
-      console.log(val);
-      Vue.set(this.showErrors, "emptyprofileName", null);
-      Vue.set(this.showErrors, "profileNameMaxLength", null);
+    "userInfo.phone"(val) {
+      Vue.set(this.showErrors, "invalidFormatPhone", null);
       this.disabledInfSave = false;
     },
     "passwordReset.password"() {
@@ -402,6 +431,7 @@ export default {
       flex-wrap: wrap;
       label {
         align-items: center;
+        font-size: 0.9rem;
         padding: 0.5em;
         flex-basis: 25%;
       }
