@@ -7,7 +7,7 @@
           <img v-else-if="fileInput" :src="fileInput" />
           <img v-else :src="userInfo.avatar" alt="" />
           <div class="capnhat">
-            <i class="bx bx-camera" v-on:click="handleClickInputFile"></i>
+            <b-icon-camera class="camera" v-on:click="handleClickInputFile" /> 
             <br />
             <input
               type="file"
@@ -375,7 +375,7 @@ export default {
         height: 150px;
         border-radius: 50%;
       }
-      i {
+      .camera {
         font-size: 2em;
         position: absolute;
         top: 4.5em;

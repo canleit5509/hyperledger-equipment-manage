@@ -47,11 +47,11 @@ const checkAvatar = () => [
 ];
 
 const checkPassword = () => [
-    check('oldPassword', 'Old password is required')
+    check('password', 'Old password is required')
     .not().isEmpty(),
-    check('password', 'New password is required')
+    check('new_password', 'New password is required')
     .not().isEmpty(),
-    check('password', 'New password must be at least 6 characters')
+    check('new_password', 'New password must be at least 6 characters')
     .isLength({
         min: 6,
     }),

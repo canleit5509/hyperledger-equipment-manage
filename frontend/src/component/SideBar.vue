@@ -14,7 +14,7 @@
           ><b-icon class="icon" icon="house-door-fill" aria-hidden="true"></b-icon>
           Dashboard</router-link
         >
-        <router-link tag="li" v-if="userRole == 'Admin'" to="/accountmanagement"
+        <router-link tag="li" v-if="userRole == 'admin'" to="/accountmanagement"
           ><b-icon class="icon" icon="person-circle" aria-hidden="true"></b-icon>
           Account</router-link
         >
@@ -30,7 +30,7 @@
           ><b-icon class="icon" icon="house-door-fill" aria-hidden="true"></b-icon>
           </router-link
         >
-        <router-link tag="li" v-if="userRole == 'Admin'" to="/accountmanagement"
+        <router-link tag="li" v-if="userRole == 'admin'" to="/accountmanagement"
           ><b-icon class="icon" icon="person-circle" aria-hidden="true"></b-icon>
           </router-link
         >
@@ -93,13 +93,13 @@ export default {
       line-height: 60px;
       text-decoration: none;
       color: white;
-      border-top: 1px solid white;
+      // border-top: 1px solid white;
     }
     .router-link-exact-active {
       background-color: $secondary-color;
     }
     li:hover {
-      background-color: $secondary-color;
+      background-color: $third-color;
     }
     hr {
       margin: 0;

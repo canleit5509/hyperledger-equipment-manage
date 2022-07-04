@@ -12,14 +12,7 @@ const getters = {
     },
     userRole() {
         if (state.userInfo) {
-            switch (state.userInfo.role_id) {
-                case 1:
-                    return 'Admin';
-                case 2:
-                    return 'DAC';
-                default:
-                    return 'Advertiser'
-            }
+            return state.userInfo.role;
         }
         return '';
     }

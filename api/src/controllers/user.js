@@ -149,13 +149,13 @@ const changePassword = async (req, res) => {
                 message: 'User not found',
             });
         }
-        const isPasswordCorrect = await bcrypt.compare(req.body.oldPassword, user.password);
+        const isPasswordCorrect = await bcrypt.compare(req.body.password, user.password);
         if (!isPasswordCorrect) {
             return res.status(400).json({
                 message: 'Password is incorrect',
             });
         }
-        const hashedPassword = await bcrypt.hash(req.body.password, 10);
+        const hashedPassword = await bcrypt.hash(req.body.new_password, 10);
         const updatedUser = await services.userService.updateUserById(user._id, {
             password: hashedPassword,
         });
@@ -384,6 +384,39 @@ const getUserById = async (req, res) => {
     }
 }
 
+const updateUser = async (req, res) => {
+    try {
+        const user = await services.userService.getUserById(req.params.id);
+        if (!user) {
+            return res.status(404).json({
+                message: 'User not found',
+            });
+        }
+        var data = {
+            name: req.body.name?req.body.name:null,
+            phone: req.body.phone?req.body.phone:null,
+            position: req.body.position?req.body.position:null,
+            department: req.body.department?req.body.department:null,
+            role: role?role:USER_ROLES.USER,
+        }
+        const updatedUser = await services.userService.updateUserById(user._id, data);
+        if (!updatedUser) {
+            return res.status(400).json({
+                message: 'User not updated',
+            });
+        }
+        return res.status(200).json(updatedUser);
+    }
+    catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            error: error.message,
+            message: 'Something went wrong',
+        });
+    }
+}
+
+
 
 
 module.exports = {
@@ -399,5 +432,6 @@ module.exports = {
     restoreUser,
     getUsersWithDeleted,
     getMyEquipments,
-    getUserById
+    getUserById,
+    updateUser
 }

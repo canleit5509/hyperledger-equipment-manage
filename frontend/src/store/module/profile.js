@@ -34,7 +34,7 @@ const actions = {
     async changeUserInfo({
         commit
     }, userData) {
-        await http.put('/profile', userData, 'Update information successfully').then(() => {
+        await http.put('/api/user/me', userData, 'Update information successfully').then(() => {
             commit("clearError")
         }).catch((err) => {
             commit("setError", err.response.data.message.email[0])
@@ -44,7 +44,7 @@ const actions = {
     async changePassword({
         commit
     }, passwordData) {
-        await http.put('/password', passwordData, 'Update password successfully')
+        await http.post('/api/auth/password_change', passwordData, 'Update password successfully')
             .then(() => {
                 console.log(passwordData);
                 commit("clearError")

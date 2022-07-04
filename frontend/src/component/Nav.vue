@@ -10,11 +10,7 @@
     <div class="logo"><img src="../assets/logo.png"></div>
     <div class="right-navbar">
       <b-dropdown right>
-        <b-dropdown-item
-          ><router-link to="/profile"
-            >User Profile</router-link
-          ></b-dropdown-item
-        >
+        <b-dropdown-item><router-link to="/profile">User Profile</router-link></b-dropdown-item>
         <b-dropdown-item @click="logout">Log Out</b-dropdown-item>
       </b-dropdown>
       <img v-if="!user.avatar" src="../assets/avt.png" alt="" />
@@ -55,7 +51,6 @@ export default {
 .nav-bar {
   background-color: $color;
   display: flex;
-  border-bottom: 1px solid white;
   .left-navbar {
     min-width: 220px;
     display: flex;
@@ -81,7 +76,6 @@ export default {
     flex-basis: 7%;
     width: auto;
     position: relative;
-    top: 15%;
     img {
       width: 50px;
       height: 50px;

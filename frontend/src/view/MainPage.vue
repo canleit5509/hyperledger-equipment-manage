@@ -65,7 +65,7 @@ export default {
       img {
         width: 150px;
         height: 150px;
-        border-radius: 50%;
+        border-radius: 50%; 
         margin-top: 5vh;
         margin-bottom: 2vh;
       }
@@ -74,7 +74,7 @@ export default {
       }
     }
     .dashboard-side-hide{
-      min-width: 40px;
+      min-width: 60px;
       background-color: $color;
     }
     .content-tab {

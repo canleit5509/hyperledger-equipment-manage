@@ -19,7 +19,8 @@ router.get('/all', isAuth, permit(USER_ROLES.ADMIN), controllers.userController.
 router.put('/restore/:id', isAuth, permit(USER_ROLES.ADMIN), controllers.userController.restoreUser);
 router.get('/me', isAuth,  controllers.userController.getProfile);
 router.get('/:id', isAuth, permit(USER_ROLES.ADMIN, USER_ROLES.MANAGER),  controllers.userController.getUserById);
-router.put('/:id', isAuth, checkProfile(), validator, controllers.userController.updateProfile);
+router.put('/me', isAuth, checkProfile(), validator, controllers.userController.updateProfile);
+router.put('/:id', isAuth, checkProfile(), permit(USER_ROLES.ADMIN), validator, controllers.userController.updateUser);
 router.delete('/:id', isAuth, permit(USER_ROLES.ADMIN), controllers.userController.deleteUser);
 router.post('/', isAuth, permit(USER_ROLES.ADMIN), checkRegister(), validator, controllers.userController.register);
 router.get('/', isAuth, permit(USER_ROLES.ADMIN, USER_ROLES.MANAGER), controllers.userController.getAllUsers)
