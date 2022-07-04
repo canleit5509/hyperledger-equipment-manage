@@ -5,7 +5,7 @@ const config = process.env;
 const isLoggedIn = (req, res, next) => {
   const bearerToken = req.headers.authorization || req.body.token || req.query.token || req.headers['x-access-token'];
   if (!bearerToken) {
-    return res.status(403).send('A token is required for authentication!');
+    return res.status(403).json({message: 'A token is required for authentication!'});
   }
   try {
     const token = bearerToken.split(' ')[1];
@@ -13,7 +13,7 @@ const isLoggedIn = (req, res, next) => {
     req.user = decoded;
   } catch (err) {
     console.log(err);
-    return res.status(401).send('Invalid token');
+    return res.status(401).json({message: 'Invalid token'});
   }
   return next();
 };

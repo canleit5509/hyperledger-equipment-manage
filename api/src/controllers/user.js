@@ -32,10 +32,12 @@ const login = async (req, res) => {
         }, process.env.JWT_SECRET, {
             expiresIn: '1h',
         });
+        user.password = undefined;
         // return the token
         return res.status(200).json({
             message: 'Login successfully',
             token,
+            user: user
         });
     } catch (error) {
       console.log(error);
