@@ -4,9 +4,10 @@ const { Gateway, Wallets } = require('fabric-network');
 const FabricCAServices = require('fabric-ca-client');
 const USER_ROLES = require('../const/userRoles');
 
-const query = async (query, options = '',username = 'appUser') => {
+const query = async (userID = 'appUser') => {
     try {
-        const ccpPath = path.resolve(__dirname, '..', '..', '..', '..', 'test-network', 'organizations', 'peerOrganizations', 'org1.example.com', 'connection-org1.json');
+        const ccpPath = path.resolve(__dirname, '..', '..', '..', '..', 'test-network', 'organizations',
+         'peerOrganizations', 'org1.example.com', 'connection-org1.json');
         const ccp = JSON.parse(fs.readFileSync(ccpPath, 'utf8'));
 
         // Create a new file system based wallet for managing identities.
@@ -40,7 +41,7 @@ const query = async (query, options = '',username = 'appUser') => {
 
 
         // Evaluate the specified transaction.
-        const result = await contract.evaluateTransaction(query, options);
+        const result = await contract.evaluateTransaction("readUser", `${userID}`);
         await gateway.disconnect();
         return result;
     } catch (error) {
@@ -49,7 +50,7 @@ const query = async (query, options = '',username = 'appUser') => {
     }
 }
 
-const invoke = async (type, arg, username = 'appUser') => {
+const invoke = async (userID = "appUser", equipmentID) => {
     try {
         const ccpPath = path.resolve(__dirname, '..', '..', '..', '..', 'test-network', 'organizations', 'peerOrganizations', 'org1.example.com', 'connection-org1.json');
         const ccp = JSON.parse(fs.readFileSync(ccpPath, 'utf8'));
@@ -59,7 +60,7 @@ const invoke = async (type, arg, username = 'appUser') => {
         const wallet = await Wallets.newFileSystemWallet(walletPath);
 
         // Check to see if we've already enrolled the user.
-        const identity = await wallet.get(username);
+        const identity = await wallet.get(userID);
         if (!identity) {
             console.log(`An identity for the user ${username} does not exist in the wallet`);
             console.log('Run the registerUser.js application before retrying');
@@ -84,13 +85,7 @@ const invoke = async (type, arg, username = 'appUser') => {
         const contract = network.getContract('equipment');
 
         // Evaluate the specified transaction.
-        if (type == 'createEquipment' || type == 'updateEquipment') {
-            var result = await contract.submitTransaction(type, arg.id, arg.name, arg.type, arg.status, arg.user, arg.buyTime, arg.price, arg.model, arg.serialNumber, arg.supplier);
-        } else if (type === 'changeEquipmentStatus') {
-            var result = await contract.submitTransaction(type, arg.id, arg.status, arg.updatedAt);
-        } else if (type === 'changeEquipmentUser') {
-            var result = await contract.submitTransaction(type, arg.id, arg.user, arg.updatedAt);
-        }
+        var result = await contract.submitTransaction('pushEquipment', `${userID}`, `${equipmentID}`);
         return result;
     } catch (error) {
         console.error(`Failed to evaluate transaction: ${error}`);
