@@ -7,7 +7,7 @@ const createRequest = async (req, res) => {
         const newRequest = {
             createdBy: req.user._id,
             updatedBy: req.user._id,
-            equipmentId: req.body.equipment ? req.body.equipment : null,
+            equipmentId: req.body.equipmentId ? req.body.equipmentId : null,
             description: req.body.description ? req.body.description : null,
             status: req.body.status ? req.body.status : REQUEST_STATUS.PENDING,
             type: req.body.type ? req.body.type : REQUEST_TYPE.OTHER,
@@ -80,7 +80,6 @@ const listRequest = async (req, res) => {
             limit,
             sort,
             order,
-            filter
         } = req.query;
         const options = {
             page: page ? parseInt(page) : 1,
@@ -88,6 +87,7 @@ const listRequest = async (req, res) => {
             sort: sort ? sort : 'createdAt',
             order: order ? order : 'desc',
         }
+        var filter = req.query.filter ? JSON.parse(req.query.filter) : {};
         const requests = await services.requestService.queryRequest(filter, options);
         return res.status(200).json(requests);
     } catch (error) {

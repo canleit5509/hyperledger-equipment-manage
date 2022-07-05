@@ -99,7 +99,7 @@ const request_fields = [
       label: "Type",
    },
    {
-      key: "Description",
+      key: "description",
       label: "Description",
    },
    {
@@ -119,5 +119,6 @@ const request_fields = [
 
 export default {
    user_fields,
-   equipment_fields
+   equipment_fields,
+   request_fields
 }

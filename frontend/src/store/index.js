@@ -8,6 +8,7 @@ import Validation from './module/validation'
 import ErrorMessage from './module/errorMessage'
 import myEquipment from './module/myequipment'
 import equipment from './module/equipment'
+import myRequests from './module/myRequest'
 Vue.use(Vuex)
 export default new Vuex.Store({
     modules: {
@@ -18,6 +19,7 @@ export default new Vuex.Store({
         VALIDATION: Validation,
         ERROR: ErrorMessage,
         MYEQUIPMENT: myEquipment,
-        EQUIPMENT: equipment
+        EQUIPMENT: equipment,
+        REQUEST: myRequests
     }
 })

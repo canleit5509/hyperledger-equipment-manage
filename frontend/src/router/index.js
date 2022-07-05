@@ -7,7 +7,8 @@ import UserList from "../view/UserList";
 import ErrorPage from "../view/ErrorPage.vue";
 import Profile from "../view/Profile.vue";
 import MyDevices from "../view/MyDevices.vue"
-import EquipmentManage from "../view/EquipmentManage.vue"
+import EquipmentManage from "../view/EquipmentManage.vue";
+import RequestList from "../view/RequestList.vue";
 Vue.use(VueRouter);
 
 const routes = [
@@ -45,6 +46,16 @@ const routes = [
         path: "/equipment", 
         name: 'equipment',
         component: EquipmentManage
+      },
+      {
+        path: "/request",
+        name: 'request',
+        component: RequestList
+      },
+      {
+        path: "/myrequest",
+        name: 'myrequest',
+        component: RequestList
       }
     ]
   },

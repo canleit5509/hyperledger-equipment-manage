@@ -20,12 +20,12 @@
         <router-link
           tag="li"
           v-if="userRole == 'admin' || userRole == 'manager'"
-          to="/userlist"
+          to="/myrequest"
         >
           <b-icon class="icon" icon="clipboard-plus" aria-hidden="true" />
           My Request
         </router-link>
-        <router-link tag="li" to="/campaign">
+        <router-link tag="li" to="/request">
           <b-icon class="icon" icon="clipboard-check" aria-hidden="true"></b-icon>
           Request Management
         </router-link>
@@ -46,12 +46,11 @@
         </router-link>
         <router-link
           tag="li"
-          v-if="userRole == 'admin'"
-          to="/accountmanagement"
+          to="/myrequest"
         >
           <b-icon class="icon" icon="clipboard-plus" aria-hidden="true" />
         </router-link>
-        <router-link tag="li" to="/campaign">
+        <router-link tag="li" to="/request" v-if="userRole == 'admin'">
           <b-icon class="icon" icon="clipboard-check" aria-hidden="true"></b-icon>
         </router-link>
         <router-link tag="li" to="/equipment">
