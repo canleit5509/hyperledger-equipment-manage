@@ -15,7 +15,7 @@ const query = async (userID = 'appUser') => {
         const wallet = await Wallets.newFileSystemWallet(walletPath);
 
         // Check to see if we've already enrolled the user.
-        const identity = await wallet.get(username);
+        const identity = await wallet.get('appUser');
         if (!identity) {
             console.log('An identity for the user "appUser" does not exist in the wallet');
             console.log('Run the registerUser.js application before retrying');
@@ -26,7 +26,7 @@ const query = async (userID = 'appUser') => {
         const gateway = new Gateway();
         await gateway.connect(ccp, {
             wallet,
-            identity: username,
+            identity: 'appUser',
             discovery: {
                 enabled: true,
                 asLocalhost: true
@@ -50,7 +50,7 @@ const query = async (userID = 'appUser') => {
     }
 }
 
-const invoke = async (userID = "appUser", equipmentID) => {
+const invoke = async (type ,userID , equipmentID) => {
     try {
         const ccpPath = path.resolve(__dirname, '..', '..', '..', '..', 'test-network', 'organizations', 'peerOrganizations', 'org1.example.com', 'connection-org1.json');
         const ccp = JSON.parse(fs.readFileSync(ccpPath, 'utf8'));
@@ -60,7 +60,7 @@ const invoke = async (userID = "appUser", equipmentID) => {
         const wallet = await Wallets.newFileSystemWallet(walletPath);
 
         // Check to see if we've already enrolled the user.
-        const identity = await wallet.get(userID);
+        const identity = await wallet.get("appUser");
         if (!identity) {
             console.log(`An identity for the user ${username} does not exist in the wallet`);
             console.log('Run the registerUser.js application before retrying');
@@ -71,7 +71,7 @@ const invoke = async (userID = "appUser", equipmentID) => {
         const gateway = new Gateway();
         await gateway.connect(ccp, {
             wallet,
-            identity: username,
+            identity: "appUser",
             discovery: {
                 enabled: true,
                 asLocalhost: true
@@ -85,7 +85,7 @@ const invoke = async (userID = "appUser", equipmentID) => {
         const contract = network.getContract('equipment');
 
         // Evaluate the specified transaction.
-        var result = await contract.submitTransaction('pushEquipment', `${userID}`, `${equipmentID}`);
+        var result = await contract.submitTransaction(`${type}`, `${userID}`, `${equipmentID}`);
         return result;
     } catch (error) {
         console.error(`Failed to evaluate transaction: ${error}`);

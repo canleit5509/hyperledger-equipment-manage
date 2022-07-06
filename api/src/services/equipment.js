@@ -11,10 +11,19 @@ const listEquipment = async (filter, options) => {
     return equipments;
 }
 
-const getUserOwnEquipments = async (userId) => {
-    data = await query(userId);
-    
-    return data;
+const getUserOwnEquipments = async (userId, options) => {
+    try {
+        var data = await query(userId);
+        data = JSON.parse(data.toString());
+        const equipments = await Equipment.paginate({
+            _id: data
+        }, options)
+        return equipments;
+    } catch (err) {
+        console.log(err);
+        return false;
+    }
+
 }
 
 const createEquipment = async (equipment) => {
@@ -36,22 +45,9 @@ const getEquipmentById = async (id) => {
     }
 }
 
-const isEquipmentIdExist = async (equipmentId) => {
-    try {
-        
-        return true;
-    } catch (err) {
-        console.log(err);
-        return true;
-    }
-}
 const updateEquipmentById = async (id, equipmentUpdate) => {
     try {
         const equipment = await Equipment.findById(id);
-        const transaction = await invoke('updateEquipment', equipmentUpdate);
-        if (!transaction) {
-            return false;
-        }
         Object.assign(equipment, equipmentUpdate);
         await equipment.save();
         return equipment;
@@ -70,7 +66,7 @@ const deleteEquipmentById = async (id) => {
 const changeEquipmentUser = async (equipmentId, userId) => {
     try {
         const equipment = await Equipment.findById(equipmentId);
-        const transaction = await invoke( userId, equipment._id,);
+        const transaction = await invoke(userId, equipment._id,);
         if (!transaction) {
             return false;
         }
@@ -106,5 +102,4 @@ module.exports = {
     changeEquipmentUser,
     deleteEquipmentById,
     changeEquipmentStatus,
-    isEquipmentIdExist
 }

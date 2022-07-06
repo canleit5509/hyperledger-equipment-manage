@@ -18,6 +18,9 @@ class EquipmentContract extends Contract {
 
     var devices = await this.readUser(ctx, userID);
     devices = JSON.parse(devices);
+    if (devices.includes(equipmentID)) {
+      return false;
+    }
     devices.push(equipmentID);
     await ctx.stub.putState(userID, Buffer.from(JSON.stringify(devices)));
     return devices;
@@ -30,6 +33,9 @@ class EquipmentContract extends Contract {
     }
     var devices = await this.readUser(ctx, userID);
     devices = JSON.parse(devices);
+    if (!devices.includes(equipmentID)) {
+      return false;
+    }
     devices = devices.filter(function(item) {
       return item !== equipmentID;
     });
