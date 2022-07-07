@@ -1,56 +1,57 @@
-const user_fields = [{
-   key: "_id",
-   label: "ID",
-   thStyle: {
-      width: '180px',
+const user_fields = [
+   {
+      key: "index",
+      label: "#",
+      tgStyle: {
+         width: "25px",
+      }
    },
-},
-{
-   key: "name",
-   label: "Username",
+   {
+      key: "name",
+      label: "Username",
 
-},
-{
-   key: "email",
-   label: "Email",
+   },
+   {
+      key: "email",
+      label: "Email",
 
-   tdClass: 'align-middle'
-},
-{
-   key: "department",
-   label: "Department",
-   thStyle: {
-      width: '80px'
+      tdClass: 'align-middle'
    },
-},
-{
-   key: "phone",
-   label: "Phone",
+   {
+      key: "department",
+      label: "Department",
+      thStyle: {
+         width: '80px'
+      },
    },
-{
-   key: "position",
-   label: "Role Name",
-  
-},
-{
-   key: "update",
-   thClass: 'd-none',
-   tdClass: 'd-none',
-},
-{
-   key: "delete",
-   thClass: 'd-none',
-   tdClass: 'd-none',
-}
+   {
+      key: "phone",
+      label: "Phone",
+   },
+   {
+      key: "position",
+      label: "Role Name",
+
+   },
+   {
+      key: "update",
+      thClass: 'd-none',
+      tdClass: 'd-none',
+   },
+   {
+      key: "delete",
+      thClass: 'd-none',
+      tdClass: 'd-none',
+   }
 ]
 
 const equipment_fields = [
    {
-      key: "id",
-      label: "ID",
-      thStyle: {
-         width: '80px',
-      },
+      key: "index",
+      label: "#",
+      tgStyle: {
+         width: "25px",
+      }
    },
    {
       key: "name",
@@ -74,6 +75,7 @@ const equipment_fields = [
    {
       key: "buyTime",
       label: "Buy Time",
+      format: 'date',
    },
    {
       key: "price",
@@ -90,6 +92,13 @@ const equipment_fields = [
 ]
 
 const request_fields = [
+   {
+      key: "index",
+      label: "#",
+      tgStyle: {
+         width: "25px",
+      }
+   },
    {
       key: "status",
       label: "Status",

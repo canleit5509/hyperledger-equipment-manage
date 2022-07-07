@@ -24,10 +24,10 @@ const getters = {
 
 const mutations = {
   setMyEquipment(state, data) {
-    state.myEquipments = data;
-    state.totalEquipments = data.length;
-    state.currentPage = 1;
-    state.perPage = data.length;
+    state.myEquipments = data.docs;
+    state.totalEquipments = data.totalDocs;
+    state.currentPage = data.page;
+    state.perPage = data.limit;
   },
   setCurrentPage(state, currentPage) {
     state.currentPage = currentPage;

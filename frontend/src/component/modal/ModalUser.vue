@@ -1,130 +1,146 @@
 <template>
-  <b-modal aria-hidden="true" title="User" size="lg" id="modalUser" ref="modalUser" hide-footer hide-header-close>
+  <b-modal
+    aria-hidden="true"
+    title="User"
+    size="lg"
+    id="modalUser"
+    ref="modalUser"
+    hide-footer
+    hide-header-close
+  >
     <div class="errorMessage">
       <error-message />
     </div>
-    <form @submit.prevent="">
-      <div class="inf group">
-        <div class="header" @click="isShowDetail = !isShowDetail">
-          <span>Information</span>
-          <span>
-            <b-icon class="icon" icon="chevron-down" aria-hidden="true"></b-icon>
-          </span>
+    <b-modal-body>
+      <form @submit.prevent="">
+        <div class="inf group">
+          <div class="header" @click="isShowDetail = !isShowDetail">
+            <span>Information</span>
+            <span>
+              <b-icon
+                class="icon"
+                icon="chevron-down"
+                aria-hidden="true"
+              ></b-icon>
+            </span>
+          </div>
+          <div v-show="isShowDetail" class="content">
+            <div>
+              <label for="">Name: </label>
+              <input
+                class="form-control"
+                type="text"
+                v-model.trim="userInfo.name"
+              />
+              <div class="errors">
+                <p class="error" v-show="showErrors.emptyUserName">
+                  Name is requied
+                </p>
+                <p class="error" v-show="showErrors.userNameMaxLength">
+                  Name must have at most 255 letters
+                </p>
+              </div>
+            </div>
+            <div>
+              <label for="">Email: </label>
+              <input
+                :disabled="isDisableEmail"
+                class="form-control"
+                type="text"
+                v-model.trim="userInfo.email"
+              />
+              <div class="errors">
+                <p class="error" v-show="showErrors.invalidEmail">
+                  Incorrect email format
+                </p>
+                <p class="error" v-show="showErrors.emptyEmail">
+                  Email is requied
+                </p>
+                <p class="error" v-show="showErrors.emailMaxLength">
+                  Email must have at most 255 letters
+                </p>
+              </div>
+            </div>
+            <div v-if="modalType === 'add'">
+              <label for="">Password: </label>
+              <input
+                class="form-control"
+                type="password"
+                v-model.trim="userInfo.password"
+              />
+              <div class="errors">
+                <p class="error" v-show="showErrors.emptyPassword">
+                  Password is requied
+                </p>
+                <p class="error" v-show="showErrors.passwordMaxLength">
+                  Password must have at most 255 letters
+                </p>
+                <p class="error" v-show="showErrors.passwordMinLength">
+                  Password must have at least 6 letters
+                </p>
+              </div>
+            </div>
+            <div>
+              <label for="">Status: </label>
+              <select v-model="userInfo.status" id="status">
+                <option v-for="i in status" :key="i.name" v-bind:value="i.id">
+                  {{ i.name }}
+                </option>
+              </select>
+            </div>
+            <div>
+              <label for="">Department: </label>
+              <input
+                class="form-control"
+                type="text"
+                v-model.trim="userInfo.agency_name"
+              />
+              <div class="errors">
+                <p class="error" v-show="showErrors.emptyAgencyName">
+                  Agency name is required
+                </p>
+                <p class="error" v-show="showErrors.agencyNameMaxLength">
+                  Agency name must have at most 255 letters
+                </p>
+                <p class="error" v-show="showErrors.agencyNameMinLength">
+                  Agency name must have at least 3 letters
+                </p>
+              </div>
+            </div>
+            <div>
+              <label for="">Role name: </label>
+              <select class="red" v-model="userInfo.role_id" name="" id="role">
+                <option
+                  v-for="role in roles"
+                  v-bind:value="role.id"
+                  :key="role.id"
+                >
+                  {{ role.name }}
+                </option>
+              </select>
+            </div>
+          </div>
         </div>
-        <div v-show="isShowDetail" class="content">
-          <div>
-            <label for="">Name: </label>
-            <input
-              class="form-control"
-              type="text"
-              v-model.trim="userInfo.name"
-            />
-            <div class="errors">
-              <p class="error" v-show="showErrors.emptyUserName">
-                Name is requied
-              </p>
-              <p class="error" v-show="showErrors.userNameMaxLength">
-                Name must have at most 255 letters
-              </p>
-            </div>
-          </div>
-          <div>
-            <label for="">Email: </label>
-            <input
-              :disabled="isDisableEmail"
-              class="form-control"
-              type="text"
-              v-model.trim="userInfo.email"
-            />
-            <div class="errors">
-              <p class="error" v-show="showErrors.invalidEmail">
-                Incorrect email format
-              </p>
-              <p class="error" v-show="showErrors.emptyEmail">
-                Email is requied
-              </p>
-              <p class="error" v-show="showErrors.emailMaxLength">
-                Email must have at most 255 letters
-              </p>
-            </div>
-          </div>
-          <div v-if="modalType === 'add'">
-            <label for="">Password: </label>
-            <input
-              class="form-control"
-              type="password"
-              v-model.trim="userInfo.password"
-            />
-            <div class="errors">
-              <p class="error" v-show="showErrors.emptyPassword">
-                Password is requied
-              </p>
-              <p class="error" v-show="showErrors.passwordMaxLength">
-                Password must have at most 255 letters
-              </p>
-              <p class="error" v-show="showErrors.passwordMinLength">
-                Password must have at least 6 letters
-              </p>
-            </div>
-          </div>
-          <div>
-            <label for="">Status: </label>
-            <select v-model="userInfo.status" id="status">
-              <option v-for="i in status" :key="i.name" v-bind:value="i.id">
-                {{ i.name }}
-              </option>
-            </select>
-          </div>
-          <div>
-            <label for="">Department: </label>
-            <input
-              class="form-control"
-              type="text"
-              v-model.trim="userInfo.agency_name"
-            />
-            <div class="errors">
-              <p class="error" v-show="showErrors.emptyAgencyName">
-                Agency name is required
-              </p>
-              <p class="error" v-show="showErrors.agencyNameMaxLength">
-                Agency name must have at most 255 letters
-              </p>
-              <p class="error" v-show="showErrors.agencyNameMinLength">
-                Agency name must have at least 3 letters
-              </p>
-            </div>
-          </div>
-          <div>
-            <label for="">Role name: </label>
-            <select class="red" v-model="userInfo.role_id" name="" id="role">
-              <option
-                v-for="role in roles"
-                v-bind:value="role.id"
-                :key="role.id"
-              >
-                {{ role.name }}
-              </option>
-            </select>
-          </div>
+        <div class="d-flex flex-row-reverse">
+          <b-button
+            class="okButton"
+            block
+            @click="addUser"
+            :disabled="isDisableButton"
+          >
+            Save
+          </b-button>
+          <b-button
+            class="cancelButton"
+            block
+            style="margin-right: 20px"
+            @click="hideModal(userInfo.id)"
+          >
+            Close
+          </b-button>
         </div>
-      </div>
-      <div class="d-flex flex-row-reverse">
-        <b-button
-          class="okButton"
-          block
-          @click="addUser"
-          :disabled="isDisableButton"
-          >Save</b-button
-        >
-        <b-button
-          class="cancelButton"
-          block
-          style="margin-right: 20px"
-          @click="hideModal(userInfo.id)"
-          >Close</b-button
-        >
-      </div>
-    </form>
+      </form>
+    </b-modal-body>
   </b-modal>
 </template>
 
@@ -161,7 +177,6 @@ export default {
       createNewUser: "USER/createNewUser",
       updateUser: "USER/updateUser",
       clearErrorMessage: "ERROR/clearErrorMessage",
-
     }),
 
     addUser() {
@@ -191,7 +206,7 @@ export default {
       }
     },
     show() {
-      this.clearErrorMessage()
+      this.clearErrorMessage();
       this.$refs.modalUser.show();
     },
     validateBeforeSubmit() {
@@ -259,7 +274,7 @@ export default {
       return passedValidate;
     },
     hideModal(id) {
-      this.resetUser(id)
+      this.resetUser(id);
       this.$refs["modalUser"].hide();
     },
     resetUser(id) {
@@ -276,12 +291,12 @@ export default {
           }
         }
       } else {
-        this.userInfo.name= null,
-        this.userInfo.email= null,
-        this.userInfo.password= null,
-        this.userInfo.status= 1,
-        this.userInfo.agency_name= null,
-        this.userInfo.role_id= 1
+        (this.userInfo.name = null),
+          (this.userInfo.email = null),
+          (this.userInfo.password = null),
+          (this.userInfo.status = 1),
+          (this.userInfo.agency_name = null),
+          (this.userInfo.role_id = 1);
       }
     },
   },
@@ -290,36 +305,36 @@ export default {
       Vue.set(this.showErrors, "emptyUserName", null);
       Vue.set(this.showErrors, "userNameMaxLength", null);
       this.isDisableButton = false;
-      this.clearErrorMessage()
+      this.clearErrorMessage();
     },
     "userInfo.email"() {
       Vue.set(this.showErrors, "emptyEmail", null);
       Vue.set(this.showErrors, "invalidEmail", null);
       Vue.set(this.showErrors, "emailMaxLength", null);
       this.isDisableButton = false;
-      this.clearErrorMessage()
+      this.clearErrorMessage();
     },
     "userInfo.agency_name"() {
       Vue.set(this.showErrors, "emptyAgencyName", null);
       Vue.set(this.showErrors, "agencyNameMaxLength", null);
       Vue.set(this.showErrors, "agencyNameMinLength", null);
       this.isDisableButton = false;
-      this.clearErrorMessage()
+      this.clearErrorMessage();
     },
     "userInfo.password"() {
       Vue.set(this.showErrors, "emptyPassword", null);
       Vue.set(this.showErrors, "passwordMaxLength", null);
       Vue.set(this.showErrors, "passwordMinLength", null);
       this.isDisableButton = false;
-      this.clearErrorMessage()
+      this.clearErrorMessage();
     },
     "userInfo.role_id"() {
       this.isDisableButton = false;
-      this.clearErrorMessage()
+      this.clearErrorMessage();
     },
     "userInfo.status"() {
       this.isDisableButton = false;
-      this.clearErrorMessage()
+      this.clearErrorMessage();
     },
   },
   async created() {
@@ -368,17 +383,16 @@ form {
       margin: 15px 0;
       flex-wrap: wrap;
       label {
-        flex-basis: 25%;
         text-align: right;
-        margin-right: 2em;
         align-items: center;
       }
       input,
       select {
         flex-basis: 70%;
-        border: 1px solid grey;
         border-radius: 5px;
-        padding: 4px;
+      }
+      option {
+        text-transform: capitalize;
       }
     }
   }

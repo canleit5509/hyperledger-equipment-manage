@@ -5,7 +5,6 @@
         id="my-table"
         :items="filterDate"
         :fields="fields"
-        :per-page="0"
         :current-page="currentPage"
         :filter="filter"
         show-empty
@@ -14,6 +13,9 @@
         hover
         class="text-center"
       >
+        <template #cell(index)="data">
+          {{ (currentPage-1)*perPage + data.index + 1 }}
+        </template>
         <template v-slot:cell(name)="data">
           <UserName :data="data.item" />
         </template>
