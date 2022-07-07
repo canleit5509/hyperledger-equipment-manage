@@ -2,6 +2,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const USER_ROLES = require('../const/userRoles');
 const services = require('../services');
+const { query, invoke } = require('../utils/contract');
 
 const login = async (req, res) => {
     try {
@@ -349,7 +350,7 @@ const restoreUser = async (req, res) => {
 
 const getMyEquipments = async (req, res) => {
     try {
-        const devices = await services.equipmentService.getOwnEquipment(req.user._id);
+        const devices = await services.equipmentService.getUserOwnEquipments(req.user._id);
         if (!devices) {
             return res.status(204).json({
                 message: 'Devices not found',
@@ -417,6 +418,67 @@ const updateUser = async (req, res) => {
     }
 }
 
+const addEquipment = async (req, res) => {
+    try {
+        const user = await services.userService.getUserById(req.params.id);
+        if (!user) {
+            return res.status(404).json({
+                message: 'User not found',
+            });
+        }
+        const equipment = await services.equipmentService.getEquipmentById(req.body.equipmentId);
+        if (!equipment) {
+            return res.status(404).json({
+                message: 'Equipment not found',
+            });
+        }
+        const result = await invoke("pushEquipment", user._id, equipment._id);
+        if (!result) {
+            return res.status(400).json({
+                message: 'Equipment not added',
+            });
+        }
+        return res.status(200).json(result);
+    }
+    catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            error: error.message,
+            message: 'Something went wrong',
+        });
+    }
+}
+
+const removeEquipment = async (req, res) => {
+    try {
+        const user = await services.userService.getUserById(req.params.id);
+        if (!user) {
+            return res.status(404).json({
+                message: 'User not found',
+            });
+        }
+        const equipment = await services.equipmentService.getEquipmentById(req.body.equipmentId);
+        if (!equipment) {
+            return res.status(404).json({
+                message: 'Equipment not found',
+            });
+        }
+        const result = await invoke("popEquipment", user._id, equipment._id);
+        if (!result) {
+            return res.status(400).json({
+                message: 'Equipment not removed',
+            });
+        }
+        return res.status(200).json(result);
+    }
+    catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            error: error.message,
+            message: 'Something went wrong',
+        });
+    }
+}
 
 
 
@@ -434,5 +496,7 @@ module.exports = {
     getUsersWithDeleted,
     getMyEquipments,
     getUserById,
-    updateUser
+    updateUser,
+    addEquipment,
+    removeEquipment,
 }
