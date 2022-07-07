@@ -23,6 +23,8 @@ router.put('/me', isAuth, checkProfile(), validator, controllers.userController.
 router.put('/:id', isAuth, checkProfile(), permit(USER_ROLES.ADMIN), validator, controllers.userController.updateUser);
 router.delete('/:id', isAuth, permit(USER_ROLES.ADMIN), controllers.userController.deleteUser);
 router.get('/equipment/:id', isAuth, controllers.equipmentController.getOwnEquipments);
+router.post('/equipment/add/:id', isAuth, permit(USER_ROLES.ADMIN, USER_ROLES.MANAGER), controllers.userController.addEquipment);
+router.post('/equipment/remove/:id', isAuth, permit(USER_ROLES.ADMIN, USER_ROLES.MANAGER), controllers.userController.removeEquipment);
 router.post('/', isAuth, permit(USER_ROLES.ADMIN), checkRegister(), validator, controllers.userController.register);
 router.get('/', isAuth, permit(USER_ROLES.ADMIN, USER_ROLES.MANAGER), controllers.userController.getAllUsers)
 

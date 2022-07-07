@@ -7,7 +7,7 @@ const USER_ROLES = require('../const/userRoles');
 const query = async (userID = 'appUser') => {
     try {
         const ccpPath = path.resolve(__dirname, '..', '..', '..', '..', 'test-network', 'organizations',
-         'peerOrganizations', 'org1.example.com', 'connection-org1.json');
+            'peerOrganizations', 'org1.example.com', 'connection-org1.json');
         const ccp = JSON.parse(fs.readFileSync(ccpPath, 'utf8'));
 
         // Create a new file system based wallet for managing identities.
@@ -50,7 +50,7 @@ const query = async (userID = 'appUser') => {
     }
 }
 
-const invoke = async (type ,userID , equipmentID) => {
+const invoke = async (type, userID, equipmentID) => {
     try {
         const ccpPath = path.resolve(__dirname, '..', '..', '..', '..', 'test-network', 'organizations', 'peerOrganizations', 'org1.example.com', 'connection-org1.json');
         const ccp = JSON.parse(fs.readFileSync(ccpPath, 'utf8'));
@@ -156,12 +156,11 @@ const registerUser = async (username, role = USER_ROLES.USER) => {
 }
 
 const prettyJSONString = (inputString) => {
-	if (inputString) {
-		 return JSON.stringify(JSON.parse(inputString), null, 2);
-	}
-	else {
-		 return inputString;
-	}
+    if (inputString) {
+        return JSON.parse(inputString);
+    } else {
+        return inputString;
+    }
 }
 
 module.exports = { query, invoke, registerUser, prettyJSONString };

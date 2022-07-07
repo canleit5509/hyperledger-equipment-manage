@@ -2,7 +2,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const USER_ROLES = require('../const/userRoles');
 const services = require('../services');
-const { query, invoke } = require('../utils/contract');
+const { query, invoke, prettyJSONString } = require('../utils/contract');
 
 const login = async (req, res) => {
     try {
@@ -41,10 +41,10 @@ const login = async (req, res) => {
             user: user
         });
     } catch (error) {
-      console.log(error);
-      return res.status(500).json({
-        message: 'Something went wrong',
-      });
+        console.log(error);
+        return res.status(500).json({
+            message: 'Something went wrong',
+        });
     }
 }
 const register = async (req, res) => {
@@ -67,11 +67,11 @@ const register = async (req, res) => {
         const newUser = await services.userService.createUser({
             email,
             password: hashedPassword,
-            name: req.body.name?req.body.name:null,
-            phone: req.body.phone?req.body.phone:null,
-            position: req.body.position?req.body.position:null,
-            department: req.body.department?req.body.department:null,
-            role: role?role:USER_ROLES.USER,
+            name: req.body.name ? req.body.name : null,
+            phone: req.body.phone ? req.body.phone : null,
+            position: req.body.position ? req.body.position : null,
+            department: req.body.department ? req.body.department : null,
+            role: role ? role : USER_ROLES.USER,
         });
         if (!newUser) {
             return res.status(400).json({
@@ -120,11 +120,11 @@ const updateProfile = async (req, res) => {
         }
 
         const userProfile = {
-            name: req.body.name?req.body.name:user.name,
-            phone: req.body.phone?req.body.phone:user.phone,
-            position: req.body.position?req.body.position:user.position,
-            department: req.body.department?req.body.department:user.department,
-            avatar: req.body.avatar?req.body.avatar:user.avatar,
+            name: req.body.name ? req.body.name : user.name,
+            phone: req.body.phone ? req.body.phone : user.phone,
+            position: req.body.position ? req.body.position : user.position,
+            department: req.body.department ? req.body.department : user.department,
+            avatar: req.body.avatar ? req.body.avatar : user.avatar,
         }
         const updatedUser = await services.userService.updateUserById(user._id, userProfile);
         if (!updatedUser) {
@@ -180,7 +180,7 @@ const changePassword = async (req, res) => {
 
 const changeAvatar = async (req, res) => {
     try {
-        const id = req.params.id || req.user._id ;
+        const id = req.params.id || req.user._id;
         const user = await services.userService.getUserById(id);
         if (!user) {
             return res.status(400).json({
@@ -215,12 +215,12 @@ const getAllUsers = async (req, res) => {
             order,
         } = req.query;
         let options = {
-            page: page?parseInt(page,10):1,
-            limit: limit?parseInt(limit,10):10,
-            sort: sort?sort:'createdAt',
-            order: order?order:'desc',
+            page: page ? parseInt(page, 10) : 1,
+            limit: limit ? parseInt(limit, 10) : 10,
+            sort: sort ? sort : 'createdAt',
+            order: order ? order : 'desc',
         }
-        const users = await services.userService.queryUser({},options);
+        const users = await services.userService.queryUser({}, options);
         if (!users) {
             return res.status(204).json({
                 message: 'Users not found',
@@ -270,12 +270,12 @@ const getDeletedUsers = async (req, res) => {
             order,
         } = req.query;
         let options = {
-            page: page?parseInt(page,10):1,
-            limit: limit?parseInt(limit,10):10,
-            sort: sort?sort:'createdAt',
-            order: order?order:'desc',
+            page: page ? parseInt(page, 10) : 1,
+            limit: limit ? parseInt(limit, 10) : 10,
+            sort: sort ? sort : 'createdAt',
+            order: order ? order : 'desc',
         }
-        const users = await services.userService.queryDeletedUser({},options);
+        const users = await services.userService.queryDeletedUser({}, options);
         if (!users) {
             return res.status(204).json({
                 message: 'Users not found',
@@ -301,12 +301,12 @@ const getUsersWithDeleted = async (req, res) => {
             order,
         } = req.query;
         let options = {
-            page: page?parseInt(page,10):1,
-            limit: limit?parseInt(limit,10):10,
-            sort: sort?sort:'createdAt',
-            order: order?order:'desc',
+            page: page ? parseInt(page, 10) : 1,
+            limit: limit ? parseInt(limit, 10) : 10,
+            sort: sort ? sort : 'createdAt',
+            order: order ? order : 'desc',
         }
-        const users = await services.userService.queryWithDeleted({},options);
+        const users = await services.userService.queryWithDeleted({}, options);
         if (!users) {
             return res.status(204).json({
                 message: 'Users not found',
@@ -395,11 +395,11 @@ const updateUser = async (req, res) => {
             });
         }
         var data = {
-            name: req.body.name?req.body.name:null,
-            phone: req.body.phone?req.body.phone:null,
-            position: req.body.position?req.body.position:null,
-            department: req.body.department?req.body.department:null,
-            role: role?role:USER_ROLES.USER,
+            name: req.body.name ? req.body.name : null,
+            phone: req.body.phone ? req.body.phone : null,
+            position: req.body.position ? req.body.position : null,
+            department: req.body.department ? req.body.department : null,
+            role: role ? role : USER_ROLES.USER,
         }
         const updatedUser = await services.userService.updateUserById(user._id, data);
         if (!updatedUser) {
@@ -438,7 +438,7 @@ const addEquipment = async (req, res) => {
                 message: 'Equipment not added',
             });
         }
-        return res.status(200).json(result);
+        return res.status(200).json(prettyJSONString(result));
     }
     catch (error) {
         console.log(error);
@@ -469,7 +469,7 @@ const removeEquipment = async (req, res) => {
                 message: 'Equipment not removed',
             });
         }
-        return res.status(200).json(result);
+        return res.status(200).json(prettyJSONString(result));
     }
     catch (error) {
         console.log(error);
