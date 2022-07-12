@@ -65,7 +65,7 @@ export default {
   methods: {
     ...mapActions({
       clearErrorMessage: "USER/clearErrorMessage",
-      getListUser: "USER/getListUser"
+      getListUser: "USER/getListUser",
     }),
     showModalEdit() {
       this.$refs.modalUser.show()

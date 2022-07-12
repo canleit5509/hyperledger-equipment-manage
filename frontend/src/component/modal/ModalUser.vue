@@ -54,7 +54,7 @@
                   Incorrect email format
                 </p>
                 <p class="error" v-show="showErrors.emptyEmail">
-                  Email is requied
+                  Email is required
                 </p>
                 <p class="error" v-show="showErrors.emailMaxLength">
                   Email must have at most 255 letters
@@ -193,7 +193,6 @@ export default {
         } else {
           var info = new Object();
           info.id = this.userInfo.id;
-          info.agency_name = this.userInfo.agency_name;
           info.name = this.userInfo.name;
           info.role_id = this.userInfo.role_id;
           info.status = this.userInfo.status;
