@@ -29,6 +29,7 @@ const actions = {
         http.post('/api/auth/login', params)
             .then((response) => {
                 localStorage.setItem('token', response.data.token)
+                localStorage.setItem('refreshToken', response.data.refreshToken)
                 localStorage.setItem('user', JSON.stringify(response.data.user))
                 console.log("Set info", response.data.user);
                 commit('setUserInfo', response.data.user)

@@ -2,7 +2,7 @@ import axios from "axios";
 import Vue from "vue";
 import router from '../router/index'
 const axiosInstance = axios.create({
-  baseURL: process.env.VUE_APP_API_URL || "http://localhost:3000",
+  baseURL: process.env.VUE_APP_API_DEV_URL || "http://localhost:3000",
   timeout: 10000,
   headers: {
     "Content-Type": "application/json",
@@ -14,12 +14,19 @@ axiosInstance.interceptors.response.use(response => {
   return response;
 }, error => {
   if (error.response.status === 401) {
-    Vue.toasted.error("Your session has expired. Please login again.");
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-    router.push({
-      path: "/login"
-    });
+    axiosInstance.post('/api/auth/refresh', {
+      refreshToken: localStorage.getItem('refreshToken')
+    }).then(response => {
+      localStorage.setItem('token', response.data.token);
+    }).catch(error => {
+        console.log(error);
+        localStorage.removeItem('token');
+        localStorage.removeItem('refreshToken');
+        localStorage.removeItem("user");
+        Vue.toasted.error("Your session has expired. Please login again.");
+        router.push('/login');
+      }
+    );
   }
   return Promise.reject(error);
 });
@@ -35,8 +42,8 @@ const handleSuccessResponse = (response, resolve, message) => {
 const handleErrorResponse = (error, reject) => {
   reject(error);
   let messages = (error.response.data.message);
-  if (typeof(messages) == 'object') messages = Object.values(messages);
-  Vue.toasted.error( messages, {
+  if (typeof (messages) == 'object') messages = Object.values(messages);
+  Vue.toasted.error(messages, {
     duration: 5000
   })
 };

@@ -17,5 +17,6 @@ const USER_ROLES = require('../const/userRoles');
 router.post('/register', checkRegister(), validator, controllers.userController.register);
 router.post('/login', checkRegister(), validator, controllers.userController.login);
 router.post('/password_change', isAuth, checkPassword(), validator, controllers.userController.changePassword);
+router.post('/refresh', controllers.userController.refreshToken); 
 
 module.exports = router;

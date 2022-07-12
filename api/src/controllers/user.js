@@ -33,12 +33,20 @@ const login = async (req, res) => {
         }, process.env.JWT_SECRET, {
             expiresIn: '1h',
         });
+        const refreshToken = jwt.sign({
+            _id: user._id,
+            role: user.role,
+        }, process.env.JWT_SECRET, {
+            expiresIn: '24h',
+        }); 
+
         user.password = undefined;
         // return the token
         return res.status(200).json({
             message: 'Login successfully',
-            token,
-            user: user
+            token: token,
+            user: user,
+            refreshToken: refreshToken,
         });
     } catch (error) {
         console.log(error);
@@ -47,6 +55,44 @@ const login = async (req, res) => {
         });
     }
 }
+
+const refreshToken = async (req, res) => {
+    try {
+        let {
+            refreshToken,
+        } = req.body;
+        if(!refreshToken) {
+            return res.status(400).json({
+                message: 'Refresh token is required',
+            });
+        }
+        const decoded = jwt.verify(refreshToken, process.env.JWT_SECRET);
+        const user = await services.userService.getUserById(decoded._id);
+        if (!user) {
+            return res.status(400).json({
+                message: 'User not found',
+            });
+        }
+        const token = jwt.sign({
+            _id: user._id,
+            role: user.role,
+        }, process.env.JWT_SECRET, {
+            expiresIn: '1h',
+        });
+
+        return res.status(200).json({
+            message: 'Refresh successfully',
+            token: token,
+        });
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            error: error.message,
+            message: 'Something went wrong',
+        });
+    }
+}
+ 
 const register = async (req, res) => {
     try {
         const {
@@ -499,4 +545,5 @@ module.exports = {
     updateUser,
     addEquipment,
     removeEquipment,
+    refreshToken
 }
