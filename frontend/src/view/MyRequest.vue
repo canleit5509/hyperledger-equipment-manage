@@ -37,7 +37,7 @@ export default {
     return {
       user: JSON.parse(localStorage.getItem("user")),
       token: localStorage.getItem("token"),
-      fields: Column.request_fields,
+      fields: Column.my_request_fields,
       searchText: ''
     };
   },

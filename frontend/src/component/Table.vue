@@ -40,6 +40,9 @@
         <template v-slot:cell(usage_rate)="data">
           <UsageRate :data="data.item" />
         </template>
+        <template v-slot:cell(_id)="data">
+          <EditCell :data="data.item" />
+        </template>
       </b-table>
 
       <b-pagination
@@ -60,6 +63,7 @@ import RoleName from "./tableCell/RoleName.vue";
 import Status from "./tableCell/Status.vue";
 import CampaignName from "./tableCell/CampaignName.vue";
 import UsageRate from "./tableCell/UsageRate.vue";
+import EditCell from "./tableCell/EditCell.vue";
 export default {
   name: "Table",
   props: [
@@ -85,6 +89,7 @@ export default {
     Status,
     CampaignName,
     UsageRate,
+    EditCell
   },
   async created() {
     this.fetchData(1);

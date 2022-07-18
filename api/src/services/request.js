@@ -7,6 +7,7 @@ const createRequest = async (request) => {
 
 const queryRequest = async (filter, options) => {
     filter.deleted = false; // filter out deleted users
+    options.populate = 'createdBy';
     const requests = await Request.paginate(filter, options);
     return requests;
 }

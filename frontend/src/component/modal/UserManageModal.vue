@@ -11,7 +11,7 @@
     <b-container fluid>
       <form ref="form" @submit.stop.prevent="handleSubmit">
         <b-form-group label="Name">
-          <b-form-input v-model="name" :state="nameState" />
+          <b-form-input v-model="name" :state="nameState" :readonly="isHandleRequest"/>
         </b-form-group>
         <b-form-group label="Email">
           <b-form-input v-model="email" :state="emailState" />
@@ -80,6 +80,15 @@ export default {
       position: "",
       positionState: null,
     };
+  },
+  props: {
+    data: {
+      type: Object,
+    },
+    isHandleRequest: {
+      type: Boolean,
+      default: false,
+    },
   },
   computed: {
     ...mapGetters({

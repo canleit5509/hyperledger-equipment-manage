@@ -51,12 +51,14 @@ const updateRequest = async (req, res) => {
         const {
             id
         } = req.params;
-        const requestUpdate = {
+        let requestUpdate = {
             updatedBy: req.user._id,
-            description: req.body.description ? req.body.description : null,
-            status: req.body.status ? req.body.status : null,
-            type: req.body.type ? req.body.type : null,
+            
         }
+        if(req.body.description) requestUpdate.description = req.body.description;
+        if(req.body.status) requestUpdate.status = req.body.status;
+        if(req.body.type) requestUpdate.type = req.body.type;
+        if(req.body.response) requestUpdate.response = req.body.response;
         const request = await services.requestService.updateRequestById(id, requestUpdate);
         if (!request) {
             return res.status(404).json({

@@ -26,7 +26,7 @@ export default {
   name: "MyDevices",
   data() {
     return {
-      columns: Column.equipment_fields,
+      columns: Column.my_equipment_fields,
       searchText: '',
       searchStart: '',
       searchEnd: '',

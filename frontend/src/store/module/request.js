@@ -58,7 +58,7 @@ const actions = {
       .catch((error) => {
       });
   },
-  async updateEquipment({
+  async updateRequest({
     commit, dispatch
   }, requestData) {
     await http
@@ -71,7 +71,7 @@ const actions = {
         commit('ERROR/setErrorMessage', error.response.data.message, { root: true })
       });
   },
-  deleteEquipment({
+  deleteRequest({
     commit, dispatch
   }, id) {
     http

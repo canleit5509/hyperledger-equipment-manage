@@ -57,12 +57,12 @@ const checkPassword = () => [
 
 const checkRequest = () => [
     
-    check('description', 'Description is not valid')
-    .isString(),
-    check('type', 'Type is required')
-    .not().isEmpty(),
-    check('type', 'Type is not valid')
-    .isString(),
+    // check('description', 'Description is not valid')
+    // .isString(),
+    // check('type', 'Type is required')
+    // .not().isEmpty(),
+    // check('type', 'Type is not valid')
+    // .isString(),
 ];
 
 const checkEquipment = () => [
