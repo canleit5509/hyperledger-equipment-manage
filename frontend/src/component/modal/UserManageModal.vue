@@ -63,7 +63,7 @@
           <b-list-group>
             <b-list-group-item v-for="(item, index) in userEquipment" :key="index">
               <div class="d-flex justify-content-between align-items-center">
-                <span class="device-name">{{ item.name  }} </span>
+                <span class="device-name">{{item.type}}|{{ item.name  }} </span>
                 <b-icon
                   class="icon icon-delete"
                   icon="trash"
@@ -121,9 +121,9 @@ export default {
       getUserEquipments: "USERDETAIL/getUserEquipments",
     }),
     show() {
-      this.$refs.modalUserDetail.show();
       this.getUserDetail(this.userId);
       this.getUserEquipments(this.userId);
+      this.$refs.modalUserDetail.show();
     },
     hide() {
       this.$refs["modalUserDetail"].hide();

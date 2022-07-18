@@ -54,6 +54,20 @@ const actions = {
             .catch((error) => {
                 console.log(error);
             });
+    },
+    async removeDevice({
+        dispatch
+    }, user, equipment) {
+        await http
+            .put(`/api/user/equipment/remove/${user}`, {
+                equipmentId: equipment
+            }, "Update successfully")
+            .then(() => {
+                dispatch('getUserEquipments', user)
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     }
 
 }
