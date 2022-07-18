@@ -43,7 +43,7 @@ async function main() {
         // createCar transaction - requires 5 argument, ex: ('createCar', 'CAR12', 'Honda', 'Accord', 'Black', 'Tom')
         // changeCarOwner transaction - requires 2 args , ex: ('changeCarOwner', 'CAR12', 'Dave')
         
-        var devices = await contract.submitTransaction('pushEquipment', '62c37c34e0cabb8d8f52cd6c', '62c37d45e0cabb8d8f52cda0');
+        var devices = await contract.submitTransaction('pushEquipment', '62c37c34e0cabb8d8f52cd6c', '62c37d8ae0cabb8d8f52cda4');
 
         console.log(devices.toString());
         // await contract.submitTransaction('createTransaction', 'CAR12', 'Honda', 'Accord', 'Black', 'Tom');
