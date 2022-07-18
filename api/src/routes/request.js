@@ -10,6 +10,7 @@ const {
 const permit = require('../middlewares/authorization');
 const isAuth = require('../middlewares/authentication');
 
+router.get('/me', isAuth, controllers.requestController.listMyRequest);
 router.get('/:id', isAuth, controllers.requestController.getRequest);
 router.post('/', isAuth, checkRequest(), validator, controllers.requestController.createRequest);
 router.put('/:id', isAuth, checkRequest(), validator, controllers.requestController.updateRequest);

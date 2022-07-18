@@ -6,6 +6,9 @@ const {
 class EquipmentContract extends Contract {
   async initLedger(ctx) {
     console.log('============= START : Initialize Ledger ===========');
+    const users = [
+      
+    ]
   }
 
   async pushEquipment(ctx, userID, equipmentID) {

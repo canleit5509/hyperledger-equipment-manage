@@ -99,6 +99,34 @@ const listRequest = async (req, res) => {
     }
 }
 
+const listMyRequest = async (req, res) => {
+    try {
+        const {
+            page,
+            limit,
+            sort,
+            order,
+        } = req.query;
+        const options = {
+            page: page ? parseInt(page) : 1,
+            limit: limit ? parseInt(limit) : 10,
+            sort: sort ? sort : 'createdAt',
+            order: order ? order : 'desc',
+        }
+        var filter = req.query.filter ? JSON.parse(req.query.filter) : {};
+        filter.createdBy = req.user._id;
+        const requests = await services.requestService.queryRequest(filter, options);
+        return res.status(200).json(requests);
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            error: error.message,
+            message: 'Something went wrong',
+        });
+    }
+}
+
+
 const updateRequestStatus = async (req, res) => {
     try {
         const id = req.params.id;
@@ -125,5 +153,6 @@ module.exports = {
     getRequest,
     updateRequest,
     listRequest,
-    updateRequestStatus
+    updateRequestStatus,
+    listMyRequest
 }
