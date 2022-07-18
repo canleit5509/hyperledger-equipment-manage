@@ -1,7 +1,15 @@
 import http from '../../service/api';
 
 const state = {
-    userDetail: null,
+    userDetail: {
+        name: null,
+        email: null,
+        phone: null,
+        department: null,
+        position: null,
+        avatar: null,
+        role: null,
+    },
     userEquipments: null,
     userRequests: null,
 }
@@ -57,13 +65,22 @@ const actions = {
     },
     async removeDevice({
         dispatch
-    }, user, equipment) {
+    }, data) {
+        console.log(data);
         await http
-            .put(`/api/user/equipment/remove/${user}`, {
-                equipmentId: equipment
-            }, "Update successfully")
+            .post(`/api/user/equipment/remove/${data.user}`, data, "Remove device successfully")
             .then(() => {
-                dispatch('getUserEquipments', user)
+                dispatch('getUserEquipments', data.user)
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    },
+    async addDevice({dispatch}, data) {
+        await http
+            .post(`/api/user/equipment/add/${data.user}`, data, "Add device successfully")
+            .then(() => {
+                dispatch('getUserEquipments', data.user)
             })
             .catch((error) => {
                 console.log(error);

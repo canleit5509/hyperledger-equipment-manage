@@ -21,7 +21,7 @@ const getters = {
   perPage() {
     return state.perPage;
   },
-  availableEquipment() {
+  availableEquipments() {
     return state.availableEquipment;
   }
 };
@@ -57,7 +57,7 @@ const actions = {
         commit('ERROR/setErrorMessage', error.response, { root: true })
       });
   },
-  async getAvailableEquipment({
+  async getAvailableEquipments({
     commit
   }) {
     await http
