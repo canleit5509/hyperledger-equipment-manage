@@ -6,10 +6,6 @@ const EQUIPMENT_STATUS = require('../const/equipmentStatus');
 const EQUIPMENT_TYPE = require('../const/equipmentType');
 
 const equipmentSchema = new mongoose.Schema({
-  id: {
-    type: String,
-    required: true,
-  },
   status: {
     type: String,
     enum: [EQUIPMENT_STATUS.AVAILABLE, EQUIPMENT_STATUS.IN_USE, EQUIPMENT_STATUS.LOST, EQUIPMENT_STATUS.REPAIRING, EQUIPMENT_STATUS.UNAVAILABLE],
@@ -26,6 +22,7 @@ const equipmentSchema = new mongoose.Schema({
   }, 
   name: {
     type: String,
+    required: true,
   },
   buyTime: {
     type: Date,

@@ -3,30 +3,10 @@
     <div class="cell-content_main_text">
       {{ data.name | wrapText}}
     </div>
-    <div class="btn-group-modify">
-      <b-icon
-        class="icon icon-edit"
-        icon="pen"
-        aria-hidden="true"
-        variant="success"
-         @click="showModalEdit"
-      ></b-icon>
-      <b-icon
-        class="icon icon-delete"
-        icon="trash"
-        aria-hidden="true"
-        variant="danger"
-         @click="showModalDelete"
-      ></b-icon>
-    </div>
-    <modal-user :userInfo="data" :modalType="'edit'" ref="modalEdit" />
-    <modal-delete :Info="data" :deleteFor="'user'" ref="modalDelete" />
   </div>
 </template>
 
 <script>
-import ModalUser from "../modal/ModalUser.vue"
-import ModalDelete from "../modal/ModalDelete.vue"
 
 export default {
   name: "userName",
@@ -38,19 +18,6 @@ export default {
       return value.length < 15 ? value : value.substring(0, 13) + "...";
     },
   },
-  methods: {
-    showModalEdit() {
-      this.data.password = "khac null"
-      this.$refs.modalEdit.show()
-    },
-    showModalDelete() {
-      this.$refs.modalDelete.show()
-    }
-  },
-  components: {
-    ModalUser,
-    ModalDelete
-  }
 };
 </script>
 

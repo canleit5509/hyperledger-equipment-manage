@@ -27,7 +27,7 @@
           ></b-form-textarea>
         </b-form-group>
         <b-form-group label="Related Equipment">
-          <b-form-input></b-form-input>
+          <b-form-input v-model="relatedEquipment"></b-form-input>
         </b-form-group>
       </form>
     </b-container>
@@ -35,6 +35,7 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from "vuex";
 import requestType from "../../constant/requestType";
 export default {
   name: "ModalRequest",
@@ -50,9 +51,13 @@ export default {
       descriptionState: null,
       type: "",
       typeState: null,
+      relatedEquipment: null,
     };
   },
   methods: {
+    ...mapActions({
+      createRequest: "MYREQUEST/createRequest"
+    }),
     show() {
       this.$refs.modalRequest.show();
     },
@@ -91,6 +96,12 @@ export default {
       if (!this.checkFormValidity()) {
         return;
       }
+
+      this.createRequest({
+        description: this.description,
+        type: this.type,
+        equipmentId: this.relatedEquipment,
+      });
       // Push the name to submitted names
       console.log(this.description, this.type);
       // Hide the modal manually

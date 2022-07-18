@@ -5,6 +5,7 @@ const state = {
   totalEquipments: null,
   currentPage: 1,
   perPage: 10,
+  availableEquipment: [],
 };
 
 const getters = {
@@ -19,6 +20,9 @@ const getters = {
   },
   perPage() {
     return state.perPage;
+  },
+  availableEquipment() {
+    return state.availableEquipment;
   }
 };
 
@@ -32,6 +36,10 @@ const mutations = {
   setCurrentPage(state, currentPage) {
     state.currentPage = currentPage;
   },
+  setAvailableEquipment(state, data) {
+    state.availableEquipment = data;
+  }
+
 }
 
 const actions = {
@@ -47,6 +55,18 @@ const actions = {
       .catch((error) => {
         console.log(error.response);
         commit('ERROR/setErrorMessage', error.response, { root: true })
+      });
+  },
+  async getAvailableEquipment({
+    commit
+  }) {
+    await http
+      .get(`/api/equipment?limit=0&status=available`)
+      .then((response) => {
+        commit("setAvailableEquipment", response.data.docs);
+      }
+      ).catch((error) => {
+        console.log(error.response);
       });
   },
   async createEquipment({

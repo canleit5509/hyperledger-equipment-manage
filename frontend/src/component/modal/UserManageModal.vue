@@ -23,7 +23,7 @@
           <b-form-select v-model="role" required :state="roleState">
             <option value="admin">Admin</option>
             <option value="manager">Manager</option>
-            <option value="user" checked>User</option>
+            <option value="user" selected>User</option>
           </b-form-select>
         </b-form-group>
         <b-form-group label="Status">
@@ -90,12 +90,11 @@ export default {
     this.resetModal();
   },
   methods: {
-    ...mapActions({ get: "USERDETAIL/resetUserDetail" }),
-    getUserDetail: function (id) {},
+    ...mapActions({ reset: "USERDETAIL/resetUserDetail" }),
     show() {
       this.$refs.modalUserDetail.show();
     },
-    hide(id) {
+    hide() {
       this.$refs["modalUserDetail"].hide();
     },
     checkFormValidity() {

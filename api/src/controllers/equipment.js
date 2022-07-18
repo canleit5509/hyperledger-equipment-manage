@@ -17,18 +17,17 @@ const createEquipment = async (req, res) => {
     try {
 
         var data = {
-            id: req.body.id,
-            name: req.body.name?req.body.name:"",
-            type: req.body.type?req.body.type:"",
-            status: req.body.status?req.body.status:"",
-            user: req.body.user?req.body.user:null,
-            buyTime: req.body.buyTime?req.body.buyTime:"",
-            price: req.body.price?req.body.price:"",
-            model: req.body.model?req.body.model:"",
-            serialNumber: req.body.serialNumber?req.body.serialNumber:"",
-            supplier: req.body.supplier?req.body.supplier:"",
-            createdAt: req.body.createdAt?req.body.createdAt:Date.now(),
-            updatedAt: req.body.updatedAt?req.body.updatedAt:Date.now(),
+            name: req.body.name ? req.body.name : "",
+            type: req.body.type ? req.body.type : "",
+            status: req.body.status ? req.body.status : "",
+            user: req.body.user ? req.body.user : null,
+            buyTime: req.body.buyTime ? req.body.buyTime : "",
+            price: req.body.price ? req.body.price : "",
+            model: req.body.model ? req.body.model : "",
+            serialNumber: req.body.serialNumber ? req.body.serialNumber : "",
+            supplier: req.body.supplier ? req.body.supplier : "",
+            createdAt: req.body.createdAt ? req.body.createdAt : Date.now(),
+            updatedAt: req.body.updatedAt ? req.body.updatedAt : Date.now(),
         }
         const equipment = await services.equipmentService.createEquipment(data);
         if (!equipment) {
@@ -46,6 +45,7 @@ const createEquipment = async (req, res) => {
     }
 }
 
+
 const listEquipment = async (req, res) => {
     try {
         const {
@@ -53,14 +53,24 @@ const listEquipment = async (req, res) => {
             limit,
             sort,
             order,
+            status
         } = req.query;
-        const options = {
-            page: page ? parseInt(page) : 1,
-            limit: limit ? parseInt(limit) : 10,
-            sort: sort ? sort : 'createdAt',
-            order: order ? order : 'desc',
-        };
+        let options = {};
+        if (limit == 0) {
+            options = { pagination: false };
+        } else {
+            options = {
+                page: page ? parseInt(page) : 1,
+                limit: limit ? parseInt(limit) : 10,
+                sort: sort ? sort : 'createdAt',
+                order: order ? order : 'desc',
+            };
+        }
+
         const filter = req.body.filter ? req.body.filter : {};
+        if (status) {
+            filter.status = status;
+        }
         const equipments = await services.equipmentService.listEquipment(filter, options);
         return res.status(200).json(equipments);
     } catch (error) {
@@ -75,22 +85,22 @@ const listEquipment = async (req, res) => {
 const updateEquipment = async (req, res) => {
     try {
         const _id = req.params.id;
-        
+
         var data = {
             id: req.body.id,
-            name: req.body.name?req.body.name:"",
-            type: req.body.type?req.body.type:"",
-            status: req.body.status?req.body.status:"",
-            user: req.body.user?req.body.user:"",
-            buyTime: req.body.buyTime?req.body.buyTime:"",
-            price: req.body.price?req.body.price:"",
-            model: req.body.model?req.body.model:"",
-            serialNumber: req.body.serialNumber?req.body.serialNumber:"",
-            supplier: req.body.supplier?req.body.supplier:"",
-            createdAt: req.body.createdAt?req.body.createdAt:Date.now(),
-            updatedAt: req.body.updatedAt?req.body.updatedAt:Date.now(),
+            name: req.body.name ? req.body.name : "",
+            type: req.body.type ? req.body.type : "",
+            status: req.body.status ? req.body.status : "",
+            user: req.body.user ? req.body.user : "",
+            buyTime: req.body.buyTime ? req.body.buyTime : "",
+            price: req.body.price ? req.body.price : "",
+            model: req.body.model ? req.body.model : "",
+            serialNumber: req.body.serialNumber ? req.body.serialNumber : "",
+            supplier: req.body.supplier ? req.body.supplier : "",
+            createdAt: req.body.createdAt ? req.body.createdAt : Date.now(),
+            updatedAt: req.body.updatedAt ? req.body.updatedAt : Date.now(),
         }
-        
+
         const equipment = await services.equipmentService.updateEquipmentById(_id, data);
         if (!equipment) {
             return res.status(404).json({
@@ -111,7 +121,7 @@ const updateEquipment = async (req, res) => {
 const changeEquipmentStatus = async (req, res) => {
     try {
         const id = req.params.id;
-       
+
         const status = req.body.status;
         const equipment = await services.equipmentService.changeEquipmentStatusById(id, status);
         if (!equipment) {
@@ -132,7 +142,7 @@ const changeEquipmentStatus = async (req, res) => {
 const changeEquipmentUser = async (req, res) => {
     try {
         const id = req.params.id;
-       
+
         const userId = req.body.userId;
         const equipment = await services.equipmentService.changeEquipmentUserById(id, userId);
         if (!equipment) {
@@ -145,7 +155,7 @@ const changeEquipmentUser = async (req, res) => {
         console.log(error);
         return res.status(500).json({
             error: error.message,
-            message: 'Something went wrong',  
+            message: 'Something went wrong',
         });
     }
 }

@@ -56,24 +56,16 @@ const checkPassword = () => [
 ];
 
 const checkRequest = () => [
-    check('status', 'Status is required')
-    .not().isEmpty(),
-    check('status', 'Status is not valid')
-    .isString(),
+    
     check('description', 'Description is not valid')
     .isString(),
     check('type', 'Type is required')
     .not().isEmpty(),
     check('type', 'Type is not valid')
     .isString(),
-    check('equipmentId', 'Equipment ID is not valid')
-    .isMongoId(),
-    check('description', 'Description is not valid')
-    .isString(),
 ];
 
 const checkEquipment = () => [
-    check('id', 'ID is required').notEmpty(),
     check('name', 'Name is not valid')
     .isString(),
     check('status', 'Status is required')

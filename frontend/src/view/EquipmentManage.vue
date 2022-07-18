@@ -57,8 +57,10 @@ export default {
   methods: {
     ...mapActions({
       getList: "EQUIPMENT/getEquipments",
+      getAvailable: "EQUIPMENT/getAvailableEquipment",
     }),
     showModalEdit() {
+      this.getAvailable();
       this.$refs.modalEquipment.show()
     },
   },
