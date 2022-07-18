@@ -61,7 +61,10 @@
         </b-form-group>
         <b-form-group label="Devices">
           <b-list-group>
-            <b-list-group-item v-for="(item, index) in userEquipment" :key="index">
+            <b-list-group-item
+              v-for="(item, index) in userEquipment"
+              :key="index"
+            >
               <div class="d-flex justify-content-between align-items-center">
                 <span class="device-name">{{item.type}}|{{ item.name  }} </span>
                 <b-icon
@@ -119,6 +122,7 @@ export default {
     ...mapActions({
       getUserDetail: "USERDETAIL/getUserDetail",
       getUserEquipments: "USERDETAIL/getUserEquipments",
+      removeDevice: "USERDETAIL/removeDevice",
     }),
     show() {
       this.getUserDetail(this.userId);
@@ -167,6 +171,33 @@ export default {
         this.$bvModal.hide("modalUserDetail");
       });
     },
+    removeEquipment(user, equipment) {
+      this.$bvModal
+        .msgBoxConfirm(
+          "Please confirm that you want to delete the device from selected.",
+          {
+            title: "Please Confirm",
+            size: "sm",
+            buttonSize: "sm",
+            okVariant: "danger",
+            okTitle: "YES",
+            cancelTitle: "NO",
+            footerClass: "p-2",
+            hideHeaderClose: false,
+            centered: true,
+          }
+        )
+        .then((value) => {
+          if (value) {
+            this.removeDevice(user, equipment);
+          } else {
+            console.log("Canceled");
+          }
+        })
+        .catch((err) => {
+          // An error occurred
+        });
+    },
   },
 };
 </script>
@@ -179,6 +210,9 @@ export default {
     margin-right: 10px;
     flex-basis: 90%;
   }
+}
+.icon {
+  cursor: pointer;
 }
 .device-item.center {
   justify-content: center;
