@@ -70,7 +70,7 @@
               />
               <div class="errors">
                 <p class="error" v-show="showErrors.emptyPassword">
-                  Password is requied
+                  Password is required
                 </p>
                 <p class="error" v-show="showErrors.passwordMaxLength">
                   Password must have at most 255 letters
@@ -82,11 +82,11 @@
             </div>
             <div>
               <label for="">Status: </label>
-              <select v-model="userInfo.status" id="status">
-                <option v-for="i in status" :key="i.name" v-bind:value="i.id">
+              <b-form-select v-model="userInfo.status" id="status">
+                <b-form-select-option v-for="i in status" :key="i.name" v-bind:value="i.id">
                   {{ i.name }}
-                </option>
-              </select>
+                </b-form-select-option>
+              </b-form-select>
             </div>
             <div>
               <label for="">Department: </label>

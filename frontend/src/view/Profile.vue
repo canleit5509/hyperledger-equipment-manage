@@ -233,11 +233,7 @@ export default {
               console.log("loi", error);
             });
         } else {
-          if (info.name == null) {
-            return;
-          } else {
-            this.changeUserInfo(info);
-          }
+          this.changeUserInfo(info);
         }
       }
     },

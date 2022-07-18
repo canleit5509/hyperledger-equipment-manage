@@ -2,8 +2,8 @@ const user_fields = [
    {
       key: "index",
       label: "#",
-      tgStyle: {
-         width: "25px",
+      thStyle: {
+         width: "60px",
       }
    },
    {
@@ -21,8 +21,9 @@ const user_fields = [
       key: "department",
       label: "Department",
       thStyle: {
-         width: '80px'
+         width: '90px'
       },
+      tdClass: 'align-middle'
    },
    {
       key: "phone",
@@ -49,8 +50,8 @@ const equipment_fields = [
    {
       key: "index",
       label: "#",
-      tgStyle: {
-         width: "25px",
+      thStyle: {
+         width: "60px",
       }
    },
    {
@@ -95,8 +96,8 @@ const request_fields = [
    {
       key: "index",
       label: "#",
-      tgStyle: {
-         width: "25px",
+      thStyle: {
+         width: "60px",
       }
    },
    {
