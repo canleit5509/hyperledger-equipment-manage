@@ -32,7 +32,7 @@ import ModalUser from "../component/modal/ModalUser.vue";
 import Column from "../constant/table_const";
 import { mapGetters, mapActions } from "vuex";
 export default {
-  name: "AccountManagement",
+  name: "MyRequest",
   data() {
     return {
       user: JSON.parse(localStorage.getItem("user")),
@@ -48,16 +48,16 @@ export default {
   computed: {
     ...mapGetters({
       errorMessage: "REQUEST/errorMessage",
-      list: "REQUEST/myRequests",
-      currentPage: "REQUEST/currentPage",
-      totalItems: "REQUEST/totalUser",
-      perPage: "REQUEST/perPage",
+      list: "MYREQUEST/myRequests",
+      currentPage: "MYREQUEST/currentPage",
+      totalItems: "MYREQUEST/totalUser",
+      perPage: "MYREQUEST/perPage",
     }),
   },
   methods: {
     ...mapActions({
-      clearErrorMessage: "REQUEST/clearErrorMessage",
-      getListUser: "REQUEST/getRequests"
+      clearErrorMessage: "MYREQUEST/clearErrorMessage",
+      getListUser: "MYREQUEST/getRequests"
     }),
     showModalEdit() {
       this.$refs.modalUser.show()

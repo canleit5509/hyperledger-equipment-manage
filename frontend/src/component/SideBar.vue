@@ -19,7 +19,6 @@
         </router-link>
         <router-link
           tag="li"
-          v-if="userRole == 'admin' || userRole == 'manager'"
           to="/myrequest"
         >
           <b-icon class="icon" icon="clipboard-plus" aria-hidden="true" />

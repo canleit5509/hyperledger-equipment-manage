@@ -9,6 +9,8 @@ import Profile from "../view/Profile.vue";
 import MyDevices from "../view/MyDevices.vue"
 import EquipmentManage from "../view/EquipmentManage.vue";
 import RequestList from "../view/RequestList.vue";
+import MyRequest from "../view/MyRequest.vue";
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -55,7 +57,7 @@ const routes = [
       {
         path: "/myrequest",
         name: 'myrequest',
-        component: RequestList
+        component: MyRequest
       }
     ]
   },

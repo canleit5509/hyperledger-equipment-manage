@@ -39,7 +39,7 @@ const actions = {
     commit
   }, page = 1) {
     await http
-      .get(`/api/request?page=${page}`)
+      .get(`/api/request/me?page=${page}`)
       .then((response) => {
         commit("setMyRequests", response.data);
       })
