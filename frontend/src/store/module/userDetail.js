@@ -49,7 +49,7 @@ const actions = {
         await http
             .get(`/api/equipment/user/${id}`)
             .then((response) => {
-                commit("setUserEquipments", response.data);
+                commit("setUserEquipments", response.data.docs);
             })
             .catch((error) => {
                 console.log(error);

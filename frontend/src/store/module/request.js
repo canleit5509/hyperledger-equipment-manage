@@ -62,7 +62,7 @@ const actions = {
     commit, dispatch
   }, requestData) {
     await http
-      .put(`/api/request/${requestData._id}`, requestData, 'Updated campaign successfully')
+      .put(`/api/request/${requestData._id}`, requestData, 'Updated request successfully')
       .then(() => {
         dispatch('getRequests', state.currentPage)
         commit("ERROR/clearErrorMessage", null, { root: true })

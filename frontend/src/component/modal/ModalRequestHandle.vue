@@ -1,38 +1,40 @@
 <template>
-  <b-modal
-    title="Request Handle"
-    size="lg"
-    id="modalRequestHandle"
-    ref="modalRequestHandle"
-    @show="resetModal"
-    @hidden="resetModal"
-    @ok="handleOk"
-  >
-    <b-container fluid>
-      <form ref="form" @submit.stop.prevent="handleSubmit">
-        <b-form-group label="Approve or Reject">
-          <b-form-select
-            v-model="data.status"
-            required
-            invalid-feedback="Decide is required"
-            :state="decideState"
-          >
-            <option value="approved">Approve</option>
-            <option value="rejected">Reject</option>
-          </b-form-select>
-        </b-form-group>
-        <b-form-group label="Response">
-          <b-form-textarea
-            v-model="data.response"
-          ></b-form-textarea>
-        </b-form-group>
-      </form>
-    </b-container>
-  </b-modal>
+  <div>
+    <b-modal
+      title="Request Handle"
+      size="lg"
+      id="modalRequestHandle"
+      ref="modalRequestHandle"
+      @show="resetModal"
+      @hidden="resetModal"
+      @ok="handleOk"
+    >
+      <b-container fluid>
+        <form ref="form" @submit.stop.prevent="handleSubmit">
+          <b-form-group label="Approve or Reject">
+            <b-form-select
+              v-model="data.status"
+              required
+              invalid-feedback="Decide is required"
+              :state="decideState"
+            >
+              <option value="approved">Approve</option>
+              <option value="rejected">Reject</option>
+            </b-form-select>
+          </b-form-group>
+          <b-form-group label="Response">
+            <b-form-textarea v-model="data.response"></b-form-textarea>
+          </b-form-group>
+        </form>
+      </b-container>
+    </b-modal>
+    <user-manage-modal id="userManageModal" :userId="data.createdBy._id" ref="userManageModal"/>
+  </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from "vuex";
+import UserManageModal from "./UserManageModal.vue";
 export default {
   name: "ModalRequestHandle",
   data() {
@@ -46,7 +48,10 @@ export default {
   props: {
     data: {
       type: Object,
-    }
+    },
+  },
+  components: {
+    UserManageModal,
   },
   methods: {
     ...mapActions({
@@ -60,7 +65,7 @@ export default {
     },
     checkFormValidity() {
       let valid = true;
-      if (this.this.data.decide === "") {
+      if (this.data.status === "") {
         valid = false;
       } else {
         this.decideState = true;
@@ -86,14 +91,16 @@ export default {
 
       this.updateRequest({
         _id: this.data._id,
-        status: this.data.decide,
+        status: this.data.status,
         response: this.data.response,
       });
       // Push the name to submitted names
       // Hide the modal manually
       this.$nextTick(() => {
         this.$bvModal.hide("modalRequestHandle");
+        this.$refs['userManageModal'].show()
       });
+
     },
   },
 };

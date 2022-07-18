@@ -26,7 +26,8 @@ export default {
     },
   },
   components: {
-    ModalRequestHandle
+    ModalRequestHandle,
+    
   },
 };
 </script>
