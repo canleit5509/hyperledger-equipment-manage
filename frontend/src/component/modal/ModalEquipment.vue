@@ -6,7 +6,6 @@
     id="modalEquipment"
     ref="modalEquipment"
   >
-    <b-modal-body>
       <b-form>
         <b-form-group label="ID:" label-for="input-id">
           <b-form-input
@@ -15,6 +14,7 @@
             type="text"
             placeholder="ID"
             required
+            readonly
           ></b-form-input>
         </b-form-group>
         <b-form-group label="Name:" label-for="input-name">
@@ -31,7 +31,7 @@
             id="input-price"
             v-model="equipment.price"
             type="text"
-            placeholder="price"
+            placeholder="Price"
             required
           ></b-form-input>
         </b-form-group>
@@ -47,15 +47,18 @@
             id="input-model"
             v-model="equipment.model"
             type="text"
-            placeholder="model"
+            placeholder="Model"
             required
           ></b-form-input>
         </b-form-group>
         <b-form-group label="Status" label-for="input-status">
           <b-form-select id="input-status" v-model="equipment.status" required>
             <option value="">Select Status</option>
-            <option value="1">Active</option>
-            <option value="0">Inactive</option>
+            <option value="unavailable">Unavailable</option>
+            <option value="available">Available</option>
+            <option value="lost">Lost</option>
+            <option value="in_use">In use</option>
+            <option value="repairing">Repairing</option>
           </b-form-select>
         </b-form-group>
         <b-form-group label="Type" label-for="input-type">
@@ -79,18 +82,15 @@
           ></b-form-textarea>
         </b-form-group>
         <br />
-        <b-button type="submit" variant="primary">Submit</b-button>
       </b-form>
-    </b-modal-body>
   </b-modal>
 </template>
 <script>
-import Vue from "vue";
 import { mapActions, mapGetters } from "vuex";
 import Data from "../../constant/index.js";
 import ErrorMessage from "../ErrorMessage.vue";
 export default {
-  name: "ModalUser",
+  name: "ModalEquipment",
   data() {
     return {
       equipment: {

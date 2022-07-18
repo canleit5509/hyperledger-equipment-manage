@@ -12,7 +12,7 @@
       <error-message />
     </div>
     <b-modal-body>
-      <form @submit.prevent="">
+      <form >
         <div class="inf group">
           <div class="header" @click="isShowDetail = !isShowDetail">
             <span>Information</span>
@@ -34,7 +34,7 @@
               />
               <div class="errors">
                 <p class="error" v-show="showErrors.emptyUserName">
-                  Name is requied
+                  Name is required
                 </p>
                 <p class="error" v-show="showErrors.userNameMaxLength">
                   Name must have at most 255 letters

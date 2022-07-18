@@ -41,9 +41,9 @@
         <b-form-group label="Devices">
           <b-list-group>
             <b-list-group-item v-for="(item, index) in items" :key="index">
-              <div class="device-item">
+              <div class="d-flex justify-content-between align-items-center">
                 <span class="device-name">{{ item }} </span>
-                <b-icon class="icon icon-delete" icon="trash"></b-icon>
+                <b-icon class="icon icon-delete" icon="trash" variant="danger"></b-icon>
               </div>
             </b-list-group-item>
             <b-list-group-item>

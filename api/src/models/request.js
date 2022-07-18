@@ -15,6 +15,9 @@ const requestSchema = new mongoose.Schema({
     description: {
         type: String,
     },
+    response: {
+        type: String,
+    },
     equipmentId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Equipment',

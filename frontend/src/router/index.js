@@ -18,6 +18,11 @@ const routes = [
     path: "/login",
     component: Login,
   },
+  { path: "/404", component: ErrorPage },
+  {
+    path: "*",
+    redirect: "/404",
+  },
   {
     path: "/",
     component: MainPage,
@@ -61,12 +66,7 @@ const routes = [
       }
     ]
   },
-  { path: "/*", component: ErrorPage },
-
-  {
-    path: "*",
-    redirect: "/404",
-  },
+  
 
 ];
 

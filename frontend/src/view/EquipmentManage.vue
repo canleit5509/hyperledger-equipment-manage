@@ -4,8 +4,8 @@
        <div class="col-sm-6"> 
         <input v-model="searchText" placeholder="Search equipment name ..."/>
       </div>
-      <div class="additional-button col-sm-6 d-flex flex-row-reverse">
-        <b-button class="button-modal"  @click="showModalEdit">
+      <div class="   d-flex flex-row-reverse">
+        <b-button variant="primary" @click="showModalEdit">
           Create new Equipment
         </b-button>
         <modal-equipment ref="modalEquipment" />
