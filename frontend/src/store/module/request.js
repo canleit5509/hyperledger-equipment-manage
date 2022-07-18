@@ -47,11 +47,11 @@ const actions = {
         console.log(error);
       });
   },
-  async createEquipment({
+  async createRequest({
     commit, dispatch
   }, requestData) {
     await http
-      .post("/api/request", requestData, "Equipment created successfully!")
+      .post("/api/request", requestData, "Request created successfully!")
       .then(() => {
         dispatch('getRequests', state.currentPage)
       })

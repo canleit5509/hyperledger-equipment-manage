@@ -478,7 +478,8 @@ const addEquipment = async (req, res) => {
                 message: 'Equipment not found',
             });
         }
-        const result = await invoke("pushEquipment", user._id, equipment._id);
+        let result = await invoke("pushEquipment", user._id, equipment._id);
+        result = JSON.parse(result);
         if (!result) {
             return res.status(400).json({
                 message: 'Equipment not added',
@@ -509,7 +510,8 @@ const removeEquipment = async (req, res) => {
                 message: 'Equipment not found',
             });
         }
-        const result = await invoke("popEquipment", user._id, equipment._id);
+        let result = await invoke("popEquipment", user._id, equipment._id);
+        result = JSON.parse(result);
         if (!result) {
             return res.status(400).json({
                 message: 'Equipment not removed',

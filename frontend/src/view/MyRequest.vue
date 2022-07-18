@@ -47,10 +47,9 @@ export default {
   },
   computed: {
     ...mapGetters({
-      errorMessage: "REQUEST/errorMessage",
       list: "MYREQUEST/myRequests",
       currentPage: "MYREQUEST/currentPage",
-      totalItems: "MYREQUEST/totalUser",
+      totalItems: "MYREQUEST/totalItems",
       perPage: "MYREQUEST/perPage",
     }),
   },

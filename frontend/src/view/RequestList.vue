@@ -49,7 +49,7 @@ export default {
       errorMessage: "REQUEST/errorMessage",
       list: "REQUEST/requests",
       currentPage: "REQUEST/currentPage",
-      totalItems: "REQUEST/totalUser",
+      totalItems: "REQUEST/totalItems",
       perPage: "REQUEST/perPage",
     }),
   },

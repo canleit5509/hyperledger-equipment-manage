@@ -45,7 +45,8 @@ const actions = {
         commit("ERROR/clearErrorMessage", null, { root: true })
       })
       .catch((error) => {
-        commit('ERROR/setErrorMessage', error.response.data.message, { root: true })
+        console.log(error.response);
+        commit('ERROR/setErrorMessage', error.response, { root: true })
       });
   },
   async createEquipment({
