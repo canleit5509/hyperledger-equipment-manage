@@ -485,7 +485,7 @@ const addEquipment = async (req, res) => {
                 message: 'Equipment not added',
             });
         }
-        return res.status(200).json(prettyJSONString(result));
+        return res.status(200).json((result));
     }
     catch (error) {
         console.log(error);
@@ -517,7 +517,7 @@ const removeEquipment = async (req, res) => {
                 message: 'Equipment not removed',
             });
         }
-        return res.status(200).json(prettyJSONString(result));
+        return res.status(200).json((result));
     }
     catch (error) {
         console.log(error);

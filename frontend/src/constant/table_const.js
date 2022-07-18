@@ -1,3 +1,4 @@
+import moment from 'moment';
 const user_fields = [
    {
       key: "index",
@@ -77,6 +78,9 @@ const equipment_fields = [
       key: "buyTime",
       label: "Buy Time",
       format: 'date',
+      formatter: (value) => {
+         return moment(value).format('YYYY-MM-DD');
+      }
    },
    {
       key: "price",
@@ -113,16 +117,8 @@ const request_fields = [
       label: "Description",
    },
    {
-      key: "equipmentId",
-      label: "Equipment",
-   },
-   {
-      key: "createdBy",
-      label: "Created By",
-   },
-   {
-      key: "updatedBy",
-      label: "Updated By",
+      key: "response",
+      label: "Response",
    }
 ]
 

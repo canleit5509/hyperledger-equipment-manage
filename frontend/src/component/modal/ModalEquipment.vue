@@ -60,14 +60,14 @@
         </b-form-group>
         <b-form-group label="Type" label-for="input-type">
           <b-form-select id="input-type" v-model="equipment.type" required>
-            <option value="">Select Status</option>
-            <option value="pc">PC</option>
-            <option value="laptop">Laptop</option>
-            <option value="mouse">Mouse</option>
-            <option value="monitor">monitor</option>
-            <option value="printer">Printer</option>
-            <option value="scanner">Scanner</option>
-            <option value="other">Other</option>
+            <b-form-select-option value="">Select Status</b-form-select-option>
+            <b-form-select-option value="pc">PC</b-form-select-option>
+            <b-form-select-option value="laptop">Laptop</b-form-select-option>
+            <b-form-select-option value="mouse">Mouse</b-form-select-option>
+            <b-form-select-option value="monitor">monitor</b-form-select-option>
+            <b-form-select-option value="printer">Printer</b-form-select-option>
+            <b-form-select-option value="scanner">Scanner</b-form-select-option>
+            <b-form-select-option value="other">Other</b-form-select-option>
           </b-form-select>
         </b-form-group>
         <b-form-group label="Description:" label-for="input-description">

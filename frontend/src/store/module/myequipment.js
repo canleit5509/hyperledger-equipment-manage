@@ -11,7 +11,7 @@ const getters = {
   myEquipments() {
     return state.myEquipments;
   },
-  totalEquipments() {
+  totalItems() {
     return state.totalEquipments;
   },
   currentPage() {

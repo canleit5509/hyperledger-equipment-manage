@@ -8,7 +8,7 @@
         <b-button class="button-modal baseButton"  @click="showModalEdit">
           Create Request
         </b-button>
-        <modal-user :userInfo="userInfo" :modalType="'add'" ref="modalUser" />
+        <modal-request ref="modalRequest" />
       </div>
     </div>
     <div class="content">
@@ -28,7 +28,7 @@
 
 <script>
 import Table from "../component/Table.vue";
-import ModalUser from "../component/modal/ModalUser.vue";
+import ModalRequest from "../component/modal/ModalRequest.vue";
 import Column from "../constant/table_const";
 import { mapGetters, mapActions } from "vuex";
 export default {
@@ -43,7 +43,7 @@ export default {
   },
   components: {
     Table,
-    ModalUser,
+    ModalRequest,
   },
   computed: {
     ...mapGetters({
@@ -59,7 +59,7 @@ export default {
       getListUser: "MYREQUEST/getRequests"
     }),
     showModalEdit() {
-      this.$refs.modalUser.show()
+      this.$refs.modalRequest.show()
     },
     getList(page) {
       this.getListUser(page);
