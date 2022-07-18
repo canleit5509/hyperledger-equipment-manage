@@ -21,7 +21,7 @@ const createEquipment = async (req, res) => {
             name: req.body.name?req.body.name:"",
             type: req.body.type?req.body.type:"",
             status: req.body.status?req.body.status:"",
-            user: req.body.user?req.body.user:"",
+            user: req.body.user?req.body.user:null,
             buyTime: req.body.buyTime?req.body.buyTime:"",
             price: req.body.price?req.body.price:"",
             model: req.body.model?req.body.model:"",

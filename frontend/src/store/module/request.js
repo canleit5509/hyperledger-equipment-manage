@@ -26,7 +26,7 @@ const mutations = {
   setRequests(state, data) {
     state.requests = data.docs;
     state.totalItems = data.totalDocs;
-    state.currentPage = 1;
+    state.currentPage = data.page;
     state.perPage = data.limit;
   },
   setCurrentPage(state, currentPage) {

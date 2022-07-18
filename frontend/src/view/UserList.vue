@@ -8,7 +8,7 @@
         <b-button class="button-modal baseButton"  @click="showModalEdit">
           Create new user
         </b-button>
-        <modal-user :userInfo="userInfo" :modalType="'add'" ref="modalUser" />
+        <modal-user-detail ref="modalUser" />
       </div>
     </div>
     <div class="content">
@@ -27,7 +27,7 @@
 </template>
 <script>
 import Table from "../component/Table.vue";
-import ModalUser from "../component/modal/ModalUser.vue";
+import ModalUserDetail from "../component/modal/UserManageModal.vue";
 import Column from "../constant/table_const";
 import { mapGetters, mapActions } from "vuex";
 export default {
@@ -51,7 +51,7 @@ export default {
   },
   components: {
     Table,
-    ModalUser,
+    ModalUserDetail,
   },
   computed: {
     ...mapGetters({

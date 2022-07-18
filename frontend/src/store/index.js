@@ -10,6 +10,7 @@ import myEquipment from './module/myequipment'
 import equipment from './module/equipment'
 import myRequests from './module/myRequest'
 import request from './module/request'
+import userDetail from './module/userDetail'
 Vue.use(Vuex)
 export default new Vuex.Store({
     modules: {
@@ -22,6 +23,7 @@ export default new Vuex.Store({
         MYEQUIPMENT: myEquipment,
         EQUIPMENT: equipment,
         REQUEST: request,
-        MYREQUEST: myRequests
+        MYREQUEST: myRequests,
+        USERDETAIL:userDetail
     }
 })

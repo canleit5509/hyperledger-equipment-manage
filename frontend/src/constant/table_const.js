@@ -66,13 +66,9 @@ const equipment_fields = [
    {
       key: "type",
       label: "Type",
-   },
-   {
-      key: "user",
-      label: "User",
-      thStyle: {
-         width: '250px',
-      },
+   },{
+      key: "supplier",
+      label: "Supplier",
    },
    {
       key: "buyTime",
@@ -107,10 +103,16 @@ const request_fields = [
    {
       key: "status",
       label: "Status",
+      thStyle: {
+         width: "100px",
+      }
    },
    {
       key: "type",
       label: "Type",
+      thStyle: {
+         width: "100px",
+      }
    },
    {
       key: "description",
