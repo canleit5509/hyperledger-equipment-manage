@@ -24,11 +24,11 @@
           <b-icon class="icon" icon="clipboard-plus" aria-hidden="true" />
           My Request
         </router-link>
-        <router-link tag="li" to="/request">
+        <router-link tag="li" to="/request" v-if="userRole == 'admin' || userRole == 'manager'">
           <b-icon class="icon" icon="clipboard-check" aria-hidden="true"></b-icon>
           Request Management
         </router-link>
-        <router-link tag="li" to="/equipment">
+        <router-link tag="li" to="/equipment" v-if="userRole == 'admin' || userRole == 'manager'">
           <b-icon class="icon" icon="file-earmark-check" aria-hidden="true"></b-icon>
           Equipment Management
         </router-link>
@@ -49,11 +49,11 @@
         >
           <b-icon class="icon" icon="clipboard-plus" aria-hidden="true" />
         </router-link>
-        <router-link tag="li" to="/request" v-if="userRole == 'admin'">
+        <router-link tag="li" to="/request" v-if="userRole == 'admin' || userRole == 'manager'">
           <b-icon class="icon" icon="clipboard-check" aria-hidden="true"></b-icon>
         </router-link>
-        <router-link tag="li" to="/equipment">
-          <b-icon class="icon" icon="file-earmark-check" aria-hidden="true"></b-icon>
+        <router-link tag="li" to="/equipment" v-if="userRole == 'admin' || userRole == 'manager'">
+          <b-icon class="icon" icon="file-earmark-check" aria-hidden="true" ></b-icon>
         </router-link>
         <router-link tag="li" to="/userlist" v-if="userRole == 'admin'">
           <b-icon class="icon" icon="people" aria-hidden="true"></b-icon>
