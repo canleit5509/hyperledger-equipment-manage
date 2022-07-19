@@ -86,8 +86,7 @@ const listRequest = async (req, res) => {
         const options = {
             page: page ? parseInt(page) : 1,
             limit: limit ? parseInt(limit) : 10,
-            sort: sort ? sort : 'createdAt',
-            order: order ? order : 'desc',
+            sort:  {'createdAt': -1},
         }
         var filter = req.query.filter ? JSON.parse(req.query.filter) : {};
         const requests = await services.requestService.queryRequest(filter, options);
