@@ -8,7 +8,7 @@
         <b-button class="button-modal baseButton"  @click="showModalEdit">
           Create new user
         </b-button>
-        <modal-user-detail ref="modalUser" />
+        <modal-user-detail :isHandleRequest="false" ref="modalUser" />
       </div>
     </div>
     <div class="content">

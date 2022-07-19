@@ -74,16 +74,15 @@
               </b-list-group-item>
               <b-list-group-item>
                 <div class="device-item center">
-                    <b-dropdown text="+"> 
-                      <b-dropdown-item
-                        v-for="(item, index) in availableEquipments"
-                        :key="index"
-                        @click="addEquipment(userId, item._id)"
-                      >
-                        {{item.type}} | {{ item.name }}
-                      </b-dropdown-item>
-                    </b-dropdown>
-                  
+                  <b-dropdown text="+">
+                    <b-dropdown-item
+                      v-for="(item, index) in availableEquipments"
+                      :key="index"
+                      @click="addEquipment(userId, item._id)"
+                    >
+                      {{ item.type }} | {{ item.name }}
+                    </b-dropdown-item>
+                  </b-dropdown>
                 </div>
               </b-list-group-item>
             </b-list-group>
@@ -108,7 +107,7 @@ export default {
     },
     isHandleRequest: {
       type: Boolean,
-      default: false,
+      default: true,
     },
   },
   computed: {
@@ -124,12 +123,19 @@ export default {
       getUserEquipments: "USERDETAIL/getUserEquipments",
       removeDevice: "USERDETAIL/removeDevice",
       addDevice: "USERDETAIL/addDevice",
+      resetUserDetail: "USERDETAIL/resetUserDetail",
+      resetUserEquipments: "USERDETAIL/resetUserEquipments",
       getAvailableEquipments: "EQUIPMENT/getAvailableEquipments",
     }),
     show() {
-      this.getUserDetail(this.userId);
-      this.getUserEquipments(this.userId);
-      this.getAvailableEquipments();
+      if (this.userId) {
+        this.getUserDetail(this.userId);
+        this.getUserEquipments(this.userId);
+        this.getAvailableEquipments();
+      } else {
+        this.resetUserDetail();
+        this.resetUserEquipments();
+      }
       this.$refs.modalUserDetail.show();
     },
     hide() {

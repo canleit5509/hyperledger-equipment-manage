@@ -85,7 +85,26 @@ const actions = {
             .catch((error) => {
                 console.log(error);
             });
+    },
+    resetUserDetail({
+        commit
+    }) {
+        commit("setUserDetail", {
+            name: null,
+            email: null,
+            phone: null,
+            department: null,
+            position: null,
+            avatar: null,
+            role: null,
+        });
+    },
+    resetUserEquipments({
+        commit
+    }) {
+        commit("setUserEquipments", null);
     }
+    
 
 }
 
